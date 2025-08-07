@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Customer Details</h2>
+  <a href="{{ url_for('customers') }}" class="btn btn-secondary"
+    >Back to List</a
+  >
+</div>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ customer['name'] }}</h5>
+    <p class="card-text">
+      <strong>Phone:</strong> {{ customer['phone'] or 'Not provided' }}<br />
+      <strong>Address:</strong> {{ customer['address'] or 'Not provided' }}<br />
+      <strong>Registered:</strong> {{ customer['date_registered'] }}
+    </p>
+  </div>
+</div>
+
+<h4 class="mb-3">Purchase History</h4>
+{% if purchases %}
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th>Payment Method</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sale in purchases %}
+      <tr>
+        <td>
+          <a
+            href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}"
+            >{{ sale['invoice_number'] }}</a
+          >
+        </td>
+        <td>{{ sale['date'] }}</td>
+        <td>₹{{ "%.2f"|format(sale['total_amount']) }}</td>
+        <td>{{ sale['payment_method'] or 'Not specified' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="text-muted">No purchases found for this customer.</p>
+{% endif %} {% endblock %}

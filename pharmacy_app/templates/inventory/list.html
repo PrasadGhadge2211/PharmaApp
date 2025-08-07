@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Medicine Inventory</h2>
+  <a href="{{ url_for('add_medicine') }}" class="btn btn-primary">
+    Add Medicine
+  </a>
+</div>
+
+<!-- Search Form -->
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="GET" action="{{ url_for('inventory') }}" class="row g-3">
+      <div class="col-md-8">
+        <input
+          type="text"
+          name="search"
+          class="form-control"
+          placeholder="Search by medicine name, batch or supplier..."
+          value="{{ request.args.get('search', '') }}"
+        />
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+      </div>
+      <div class="col-md-2">
+        <a
+          href="{{ url_for('inventory') }}"
+          class="btn btn-outline-secondary w-100"
+          >Reset</a
+        >
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Inventory Table -->
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Batch</th>
+        <th>Mfg.</th>
+        <th>Exp.</th>
+        <th>Price</th>
+        <th>Agency</th>
+        <th>Company</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if medicines %} {% for med in medicines %}
+      <tr class="{% if med['quantity'] < 10 %}table-warning{% endif %}">
+        <td>{{ med['name'] }}</td>
+        <td>{{ med['quantity'] }}</td>
+        <td>{{ med['batch_number'] }}</td>
+        <td>{{ med['mfg_date'] or "-" }}</td>
+        <td>{{ med['expiry_date'] }}</td>
+        <td>₹{{ "%.2f"|format(med['price']) }}</td>
+        <td>{{ med['supplier'] or '-' }}</td>
+        <td>{{ med['company'] or '-' }}</td>
+        <td>
+          <a
+            href="{{ url_for('edit_medicine', id=med['id']) }}"
+            class="btn btn-sm btn-warning"
+            >Edit</a
+          >
+        </td>
+        <td>
+          <a href="{{ url_for('delete_medicine', id= med['id'])}}"class="btn btn-sm btn-warning">Delete</a>
+        </td>
+      </tr>
+      {% endfor %} {% else %}
+      <tr>
+        <td colspan="7" class="text-center text-muted">No medicines found</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

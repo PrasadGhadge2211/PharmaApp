@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Add General item</h2>
+
+<form method="POST">
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="name" class="form-label">Product Name</label>
+      <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+    <div class="col-md-6">
+      <label for="batch_number" class="form-label">Batch Number</label>
+      <input
+        type="text"
+        class="form-control"
+        id="batch_number"
+        name="batch_number"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="quantity" class="form-label">Quantity</label>
+      <input
+        type="number"
+        class="form-control"
+        id="quantity"
+        name="quantity"
+        min="1"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="price" class="form-label">MRP (₹)</label>
+      <input
+        type="number"
+        step="0.01"
+        class="form-control"
+        id="price"
+        name="price"
+        min="0"
+        required
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="cost_price" class="form-label">Rate (₹)</label>
+      <input
+        type="number"
+        step="0.01"
+        class="form-control"
+        id="cost_price"
+        name="cost_price"
+        min="0"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="supplier" class="form-label">Supplier</label>
+      <input type="text" class="form-control" id="supplier" name="supplier" />
+    </div>
+    <div class="col-md-6">
+      <label for="company" class="form-label">Company</label>
+      <input type="text" class="form-control" id="company" name="company" />
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <label for="mfg_date" class="form-label">Mfg. Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="mfg_date"
+        name="mfg_date"
+        required
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="expiry_date" class="form-label">Expiry Date</label>
+      <input
+        type="date"
+        class="form-control"
+        id="expiry_date"
+        name="expiry_date"
+        required
+      />
+    </div>
+    <input type="hidden" id="general" name="general" value="True" />
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">Save Medicine</button>
+    <a href="{{ url_for('inventory') }}" class="btn btn-secondary">Cancel</a>
+  </div>
+</form>
+{% endblock %}

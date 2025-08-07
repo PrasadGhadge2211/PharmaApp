@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice #{{ sale.invoice_number }}</title> {# Using dot notation #}
+    <style>
+        /* Basic styling for PDF output */
+        @page {
+            size: A4;
+            margin: 1.5cm; /* Standard margins */
+        }
+        body {
+            font-family: Arial, sans-serif; /* Use common fonts */
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #333;
+        }
+        .invoice-container {
+            width: 100%;
+        }
+        .header-section::after { /* Clearfix for floats */
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .header-left {
+            width: 55%; /* Adjust width distribution */
+            float: left;
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+        .header-right {
+            width: 45%; /* Adjust width distribution */
+            float: right;
+            text-align: right;
+            box-sizing: border-box; /* Include padding/border in width */
+        }
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 18pt;
+            font-weight: bold;
+            color: #000;
+            text-align: center; /* Center main invoice title */
+            margin-bottom: 20px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+        }
+        h2 { /* Section titles */
+            margin: 0 0 8px 0;
+            font-size: 11pt;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+        }
+        address {
+            font-style: normal;
+            line-height: 1.5;
+            margin: 0;
+        }
+        .invoice-details {
+            clear: both; /* Ensure it's below floated headers */
+            padding-top: 15px;
+            margin-bottom: 20px;
+        }
+        .invoice-details p {
+            margin: 2px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 9pt;
+            table-layout: fixed; /* Important for consistent column widths */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+            /* Crucial for preventing text overflow */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+        /* Define approximate column widths */
+        col.col-hash { width: 5%; }
+        col.col-item { width: 35%; } /* Give item name more space */
+        col.col-batch { width: 20%; }
+        col.col-qty { width: 10%; }
+        col.col-price { width: 15%; }
+        col.col-total { width: 15%; }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tfoot td {
+            font-weight: bold;
+            border: none;
+            padding-top: 8px;
+            padding-bottom: 2px;
+        }
+        tfoot tr:last-child td {
+            border-top: 1px solid #aaa;
+            font-size: 11pt;
+        }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #aaa;
+            text-align: center;
+            font-size: 9pt;
+            color: #555;
+        }
+        p { margin: 4px 0; } /* Consistent paragraph margin */
+        strong { font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <h1>Invoice</h1>
+
+        <div class="header-section">
+            <div class="header-left">
+                 <h2>From:</h2>
+                 <address>
+                    <strong>Sanskar Medical and Gen.St</strong><br>
+                    Shop No.35, Pratibha Sa<br>
+                    Ghadge Nagar, Nashik Road, Nashik<br>
+                    Phone: 94229 90414/ 80070 74991<br>
+                    DL.NO: 20-433500/21-433501<br>
+                    GSTIN: <br>
+                </address>
+            </div>
+            <div class="header-right">
+                <h2>To:</h2>
+                {% if sale.customer_name %}
+                <address>
+                    <strong>{{ sale.customer_name }}</strong><br>
+                    {% if sale.customer_address %}{{ sale.customer_address|replace('\n', '<br>')|safe }}<br>{% endif %}
+                    {% if sale.customer_phone %}Phone: {{ sale.customer_phone }}{% endif %}
+                    {% if not sale.customer_address and not sale.customer_phone %}(No further details){% endif %}
+                </address>
+                {% else %}
+                <address>
+                    <strong>Walk-in Customer</strong>
+                </address>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="invoice-details">
+             <p><strong>Invoice #:</strong> {{ sale.invoice_number }}</p>
+             <p><strong>Date:</strong> {{ sale['date'] | local_datetime }}</p> {# Corrected variable name #}
+             <p><strong>Payment Method:</strong> {{ sale.payment_method | default('N/A') }}</p>
+        </div>
+
+        <table>
+            {# Define column widths #}
+            <colgroup>
+                <col class="col-hash">
+                <col class="col-item">
+                <col class="col-batch">
+                <col class="col-qty">
+                <col class="col-price">
+                <col class="col-total">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th>Item</th>
+                    <th>Batch No.</th> {# Added Batch Number Header #}
+                    <th class="text-center">Qty</th>
+                    <th class="text-right">Unit Price (₹)</th>
+                    <th class="text-right">Total (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td class="text-center">{{ loop.index }}</td>
+                    <td>{{ item.medicine_name }}</td>
+                    <td>{{ item.batch_number }}</td> {# Added Batch Number Data #}
+                    <td class="text-center">{{ item.quantity }}</td>
+                    <td class="text-right">{{ "%.2f"|format(item.price) }}</td>
+                    <td class="text-right">{{ "%.2f"|format(item.price * item.quantity) }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    {# Updated colspan to 6 #}
+                    <td colspan="6" class="text-center">(No items)</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+             {% if items %}
+            <tfoot>
+                <tr>
+                    {# Updated colspan to 5 #}
+                    <td colspan="5" class="text-right"><strong>Subtotal:</strong></td>
+                    <td class="text-right">₹{{ "%.2f"|format(sale.total_amount + sale.discount) }}</td>
+                </tr>
+                <tr>
+                    {# Updated colspan to 5 #}
+                    <td colspan="5" class="text-right"><strong>Discount:</strong></td>
+                    <td class="text-right">₹{{ "%.2f"|format(sale.discount) }}</td>
+                </tr>
+                <tr>
+                    {# Updated colspan to 5 #}
+                    <td colspan="5" class="text-right"><strong>Total Amount:</strong></td>
+                    <td class="text-right"><strong>₹{{ "%.2f"|format(sale.total_amount) }}</strong></td>
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+
+        <!-- <div class="footer">
+            <p>Thank you for your business!</p>
+             <p>** This is a computer generated invoice **</p>
+        </div> -->
+    </div>
+</body>
+</html>

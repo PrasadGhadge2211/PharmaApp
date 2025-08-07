@@ -1,0 +1,85 @@
+body {
+    /* padding-top: 20px; */
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* pharmacy_app/static/css/style.css */
+
+/* ... (keep existing styles) ... */
+
+/* Styles for Search Results Dropdown */
+.search-results-list {
+    position: absolute; /* Position relative to the parent .search-container */
+    left: 0;
+    top: 100%; /* Position directly below the input */
+    width: 100%; /* Take full width of the parent */
+    z-index: 1000; /* Ensure it's above other elements */
+    border: 1px solid rgba(0, 0, 0, 0.175); /* Match Bootstrap styling */
+    border-top: none; /* Avoid double border with input */
+    border-radius: 0 0 0.375rem 0.375rem; /* Match Bootstrap input rounding */
+    max-height: 250px; /* Limit height to prevent excessive length */
+    overflow-y: auto; /* Add scrollbar if results exceed max-height */
+    background-color: #fff; /* Ensure background is opaque */
+    display: none; /* Hidden by default (JS handles display) */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Optional: Add shadow */
+}
+
+/* Style for items within the list */
+.search-results-list .list-group-item {
+    border-radius: 0; /* Remove individual item rounding */
+    border-left: none;
+    border-right: none;
+    border-top: none; /* Rely on bottom border */
+    padding: 0.5rem 0.75rem; /* Adjust padding as needed */
+}
+
+.search-results-list .list-group-item:last-child {
+    border-bottom: none; /* No border for the last item */
+}
+
+/* Hover/Focus styles for better interaction */
+.search-results-list .list-group-item-action:hover,
+.search-results-list .list-group-item-action:focus {
+    background-color: #f8f9fa; /* Light background on hover/focus */
+    cursor: pointer;
+}
+/* Print styles for invoices */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #print-section, #print-section * {
+        visibility: visible;
+    }
+    #print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none !important;
+    }
+}

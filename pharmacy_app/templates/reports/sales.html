@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block content %}
+<h2 class="mb-4">Sales Reports</h2>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Daily Sales (Last 7 Days)</h5>
+      </div>
+      <div class="card-body">
+        {% if daily_sales %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sale in daily_sales %}
+              <tr>
+                <td>{{ sale['day'] }}</td>
+                <td>₹{{ "%.2f"|format(sale['total']) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No sales data available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Monthly Sales</h5>
+      </div>
+      <div class="card-body">
+        {% if monthly_sales %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sale in monthly_sales %}
+              <tr>
+                <td>{{ sale['month'] }}</td>
+                <td>₹{{ "%.2f"|format(sale['total']) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No sales data available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Top Selling Medicines</h5>
+      </div>
+      <div class="card-body">
+        {% if top_medicines %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for med in top_medicines %}
+              <tr>
+                <td>{{ med['name'] }}</td>
+                <td>{{ med['total_quantity'] }}</td>
+                <td>₹{{ "%.2f"|format(med['total_sales']) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No sales data available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>Profit Analysis (Last 7 Days)</h5>
+      </div>
+      <div class="card-body">
+        {% if profit_data %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for profit in profit_data %}
+              <tr>
+                <td>{{ profit['day'] }}</td>
+                <td>₹{{ "%.2f"|format(profit['profit']) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No profit data available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

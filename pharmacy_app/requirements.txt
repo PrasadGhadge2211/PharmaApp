@@ -1,0 +1,4 @@
+flask
+pdfkit
+wkhtmltopdf
+python-dotenv

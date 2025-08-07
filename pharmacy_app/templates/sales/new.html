@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}New Sale{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">New Sale</h2>
+
+<form method="POST" id="sale-form" action="{{ url_for('new_sale') }}">
+  <div class="row mb-4 align-items-start">
+    <div class="col-md-6 mb-3 mb-md-0">
+      <label for="customer-search" class="form-label">Customer Search</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="customer-search" placeholder="Type Name/Phone...">
+        <button type="button" id="clear-customer" class="btn btn-outline-secondary" title="Set to Walk-in Customer" style="display: none;">X</button>
+      </div>
+      <div class="search-container" style="position: relative;">
+        <div id="customer-results" class="list-group search-results-list"></div>
+      </div>
+      <input type="hidden" id="selected_customer_id" name="selected_customer_id" />
+      <div id="selected-customer-display" class="mt-2 form-text" style="min-height: 1.5em;">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="payment_method" class="form-label">Payment Method</label>
+      <select class="form-select" id="payment_method" name="payment_method" required>
+        <option value="Cash" selected>Cash</option>
+        <option value="Card">Card</option>
+        <option value="UPI">UPI</option>
+        <option value="Net Banking">Net Banking</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  {# Medicine Search Row #}
+  <div class="row mb-3">
+    <div class="col-md-8 col-lg-6">
+      <label for="medicine-search" class="form-label">Search & Add Medicine</label>
+      <div class="search-container" style="position: relative;">
+        <input type="text" class="form-control" id="medicine-search" placeholder="Start typing medicine name..." />
+        <div id="medicine-results" class="list-group search-results-list"></div>
+      </div>
+    </div>
+  </div>
+
+  {# Selected Items Table #}
+  <h4 class="mt-4 mb-3">Selected Items</h4>
+  <div class="table-responsive mb-3">
+    <table class="table table-bordered table-hover" id="selected-items-table">
+      <thead class="table-light">
+        <tr>
+          <th>Medicine Name</th>
+          <th>Batch Number</th>
+          <th class="text-end">Price (₹)</th>
+          <th class="text-center">Stock</th>
+          <th style="width: 100px;">Quantity</th>
+          <th class="text-end">Item Total (₹)</th>
+          <th class="text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody id="selected-items-body">
+        <tr id="no-items-row">
+          <td colspan="7" class="text-center text-muted fst-italic">No items added yet.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="hidden-item-fields"></div>
+
+
+  <div class="row mb-4 justify-content-end align-items-center">
+     <div class="col-md-4 col-lg-3 mb-2 mb-md-0">
+       <label for="discount" class="form-label">Discount (₹)</label>
+       <input type="number" class="form-control" id="discount" name="discount" step="0.01" min="0" value="0.00" />
+     </div>
+     <div class="col-md-4 col-lg-3">
+        <label for="sub_total_display" class="form-label">Subtotal (₹)</label>
+        <input type="text" class="form-control mb-2" id="sub_total_display" value="0.00" readonly disabled style="background-color: #e9ecef;" />
+
+        <label for="total_amount_display" class="form-label fw-bold">Total Amount (₹)</label>
+        <input type="text" class="form-control fw-bold" id="total_amount_display" value="0.00" readonly disabled style="background-color: #e9ecef; font-size: 1.1em;" />
+     </div>
+   </div>
+
+
+  <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+    <a href="{{ url_for('sales') }}" class="btn btn-secondary me-2">Cancel</a>
+    <button type="submit" class="btn btn-primary">Complete Sale</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+{# Link to the updated sales.js file #}
+<script src="{{ url_for('static', filename='js/sales.js') }}"></script>
+<script>
+  const addCustomerUrl = "{{ url_for('add_customer') }}";
+</script>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header bg-warning text-dark">
+        <h5>Expiry Alerts</h5>
+      </div>
+      <div class="card-body">
+        {% if expiring_meds %}
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Batch</th>
+                <th>Company</th>
+                <th>Expiry</th>
+                <th>Supplier</th>
+                <th>Days Left</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for med in expiring_meds %}
+              {% set expiry_date = datetime.strptime(med['expiry_date'], '%Y-%m-%d').date() %}
+              {% set days_left = (expiry_date - now.date()).days %}
+              {% if days_left < 7 %}
+              <tr class="table-danger text-white">
+                <td>{{ med['name'] }}</td>
+                <td>{{ med['batch_number'] }}</td>
+                <td>{{ med[ 'company' ] or '-'}}</td>
+                <td>{{ med['expiry_date'] }}</td>
+                <td>{{ med['supplier'] }}</td>
+                {% if days_left < 0 %}
+                <td class="text-warning">Expired</td>
+                {% else %}
+                <td>{{ days_left }} days</td>
+                {% endif %}
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No medicines expiring soon.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header bg-danger text-white">
+        <h5>Low Stock Alerts</h5>
+      </div>
+      <div class="card-body">
+        {% if low_stock %}
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Medicine</th>
+                <th>Stock</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for med in low_stock %}
+              <tr>
+                <td>{{ med['name'] }}</td>
+                <td>{{ med['quantity'] }}</td>
+                <td>₹{{ "%.2f"|format(med['price']) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted">No low stock items.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h5>Recent Sales</h5>
+  </div>
+  <div class="card-body">
+    {% if recent_sales %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Invoice #</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sale in recent_sales %}
+          <tr>
+            <td>
+              <a href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}">
+                {{ sale['invoice_number'] }}
+              </a>
+            </td>
+            <td>{{ sale['date']|local_datetime }}</td>
+            <td>{{ sale['customer_name'] or 'Walk-in' }}</td>
+            <td>₹{{ "%.2f"|format(sale['total_amount']) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-muted">No recent sales.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

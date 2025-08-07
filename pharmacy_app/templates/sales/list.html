@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Sales</h2>
+  <a href="{{ url_for('new_sale') }}" class="btn btn-primary">New Sale</a>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Invoice #</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Amount</th>
+        <th>Payment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sale in sales %}
+      <tr>
+        <td>{{ sale['invoice_number'] }}</td>
+        <td>{{ sale['date'] | local_datetime }}</td>
+        {# Corrected: Removed extra
+        <td>tag #}</td>
+        <td>{{ sale['customer_name'] or 'Walk-in' }}</td>
+        <td>₹{{ "%.2f"|format(sale['total_amount']) }}</td>
+        <td>{{ sale['payment_method'] or 'Not specified' }}</td>
+        <td>
+          <a
+            href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}"
+            class="btn btn-sm btn-info"
+            >View</a
+          >
+          <a
+            href="{{ url_for('print_invoice', invoice_number=sale['invoice_number']) }}"
+            class="btn btn-sm btn-secondary"
+            >Print</a
+          >
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" class="text-center">No sales recorded yet</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
