@@ -16,7 +16,7 @@
     }
   ],
   "env": {
-    "MONGO_URI": "mongo_uri",
+    "MONGO_URI": "MONGODB_URI",
     "SECRET_KEY": "secret_key"
   }
 }
