@@ -2,7 +2,7 @@
 {% block content %}
 <h2 class="mb-4">Add New Medicine</h2>
 
-<form method="POST">
+<form method="POST" id="inventory-add-form">
   <div class="row mb-3">
     <div class="col-md-6">
       <label for="name" class="form-label">Product Name</label>
@@ -20,32 +20,59 @@
     </div>
   </div>
 
+  <!-- Add By selector -->
   <div class="row mb-3">
     <div class="col-md-4">
-      <label for="quantity" class="form-label">Quantity</label>
-      <input
-        type="number"
-        class="form-control"
-        id="quantity"
-        name="quantity"
-        min="1"
-        required
-      />
+      <label for="add_by" class="form-label">Add By</label>
+      <select class="form-select" id="add_by" name="add_by" required>
+        <option value="strip">By Strip</option>
+        <option value="unit">By Unit</option>
+      </select>
     </div>
-    <div class="col-md-4">
-      <label for="price" class="form-label">MRP (₹)</label>
-      <input
-        type="number"
-        step="0.01"
-        class="form-control"
-        id="price"
-        name="price"
-        min="0"
-        required
-      />
+  </div>
+
+  <!-- Strip-specific fields -->
+  <div id="strip-fields" class="mb-3">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <label for="strips_count" class="form-label">No. of Strips</label>
+        <input type="number" step="0.01" min="0" class="form-control" id="strips_count" name="strips_count" value="0" />
+        <div class="form-text">Decimals allowed for fractional strips (e.g., 1.5)</div>
+      </div>
+      <div class="col-md-3">
+        <label for="units_per_strip" class="form-label">Units per Strip</label>
+        <input type="number" min="1" step="1" class="form-control" id="units_per_strip" name="units_per_strip" value="10" />
+      </div>
+      <div class="col-md-3">
+        <label for="price_per_strip" class="form-label">Price per Strip (₹)</label>
+        <input type="number" step="0.01" min="0" class="form-control" id="price_per_strip" name="price_per_strip" value="0.00" />
+      </div>
+      <div class="col-md-3">
+        <label for="price_per_unit" class="form-label">Price per Unit (₹)</label>
+        <input type="number" step="0.01" min="0" class="form-control" id="price_per_unit" name="price_per_unit" value="0.00" />
+        <div class="form-text">Auto-calculated from strip price; editable.</div>
+      </div>
     </div>
+  </div>
+
+  <!-- Unit-specific fields -->
+  <div id="unit-fields" class="mb-3" style="display: none;">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <label for="quantity" class="form-label">Quantity (Units)</label>
+        <input type="number" min="1" step="1" class="form-control" id="quantity" name="quantity" value="1" />
+      </div>
+      <div class="col-md-3">
+        <label for="price_per_unit_single" class="form-label">Price per Unit (₹)</label>
+        <input type="number" step="0.01" min="0" class="form-control" id="price_per_unit_single" name="price_per_unit" value="0.00" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Cost price, supplier, company, dates -->
+  <div class="row mb-3">
     <div class="col-md-4">
-      <label for="cost_price" class="form-label">Rate (₹)</label>
+      <label for="cost_price" class="form-label">Rate (Cost per Unit) ₹</label>
       <input
         type="number"
         step="0.01"
@@ -56,14 +83,11 @@
         required
       />
     </div>
-  </div>
-
-  <div class="row mb-3">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label for="supplier" class="form-label">Supplier</label>
       <input type="text" class="form-control" id="supplier" name="supplier" />
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <label for="company" class="form-label">Company</label>
       <input type="text" class="form-control" id="company" name="company" />
     </div>
@@ -97,4 +121,8 @@
     <a href="{{ url_for('inventory') }}" class="btn btn-secondary">Cancel</a>
   </div>
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/inventory_add.js') }}"></script>
 {% endblock %}

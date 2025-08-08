@@ -187,8 +187,8 @@
                     <td>{{ item.medicine_name }}</td>
                     <td>{{ item.batch_number }}</td> {# Added Batch Number Data #}
                     <td class="text-center">{{ item.quantity }}</td>
-                    <td class="text-right">{{ "%.2f"|format(item.price) }}</td>
-                    <td class="text-right">{{ "%.2f"|format(item.price * item.quantity) }}</td>
+                    <td class="text-right">{{ item.price }}</td>
+                    <td class="text-right">{{  }}</td>
                 </tr>
                 {% else %}
                 <tr>

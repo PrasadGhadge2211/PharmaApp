@@ -89,8 +89,11 @@
                             <td>{{ item.medicine_name }}</td>
                             <td>{{ item.batch_number or '-' }}</td>
                             <td class="text-center">{{ item.quantity }}</td>
-                            <td class="text-end">{{ "%.2f"|format(item.price) }}</td>
-                            <td class="text-end">{{ "%.2f"|format(item.price * item.quantity) }}</td>
+                            <td class="text-end">
+                                {{ "%.2f"|format(item.ps) }}/ps | 
+                                {{ "%.2f"|format(item.pu) }}/pu
+                            </td>
+                            <td class="text-end">{{ "%.2f"|format(item.total) }}</td>
                         </tr>
                         {% else %}
                         <tr>

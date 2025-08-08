@@ -53,19 +53,35 @@
       {% if medicines %} {% for med in medicines %}
       <tr class="{% if med['quantity'] < 10 %}table-warning{% endif %}">
         <td>{{ med['name'] }}</td>
-        <td>{{ med['quantity'] }}</td>
+        <td>{{ med['stock_display'] }}</td>
         <td>{{ med['batch_number'] }}</td>
         <td>{{ med['mfg_date'] or "-" }}</td>
         <td>{{ med['expiry_date'] }}</td>
-        <td>₹{{ "%.2f"|format(med['price']) }}</td>
+        <td>
+            {% if med.get('price_per_strip') %}
+                ₹{{ "%.2f"|format(med['price_per_strip']) }} / strip<br>
+                ₹{{ "%.2f"|format(med['price_per_unit']) }} / unit
+            {% else %}
+                ₹{{ "%.2f"|format(med['price_per_unit']) }} / unit
+            {% endif %}
+        </td>
+
+
         <td>{{ med['supplier'] or '-' }}</td>
         <td>{{ med['company'] or '-' }}</td>
         <td>
-          <a href="{{ url_for('edit_medicine', id=med['_id']) }}"class="btn btn-sm btn-warning">Edit</a>
-
+          <a
+            href="{{ url_for('edit_medicine', id=med['_id']) }}"
+            class="btn btn-sm btn-warning"
+            >Edit</a
+          >
         </td>
         <td>
-          <a href="{{ url_for('delete_medicine', id=med['_id']) }}"class="btn btn-sm btn-warning">Delete</a>
+          <a
+            href="{{ url_for('delete_medicine', id=med['_id']) }}"
+            class="btn btn-sm btn-warning"
+            >Delete</a
+          >
         </td>
       </tr>
       {% endfor %} {% else %}

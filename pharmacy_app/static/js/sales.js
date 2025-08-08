@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Sales form JavaScript loaded");
+  console.log("Sales form JavaScript loaded (Strips + Units)");
 
   // --- Elements ---
   const medicineSearchInput = document.getElementById("medicine-search");
@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const hiddenCustomerIdInput = document.getElementById("selected_customer_id");
   const clearCustomerButton = document.getElementById("clear-customer");
 
-  let selectedItems = {}; // { medicineId: { data, quantity } }
+  let selectedItems = {}; // { medicineId: { data, strips, units } }
 
-  // Debounce function utility
+  // Debounce utility
   function debounce(func, delay) {
       let timeoutId;
       return function(...args) {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // =========================
-  // Customer Search & Selection
+  // Customer Search
   // =========================
   const debouncedCustomerSearch = debounce(async (query) => {
     if (query.length < 1) {
@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
     customerResultsContainer.innerHTML = "";
   
     if (customers.length === 0) {
-      // Use the Flask-rendered URL from a global JS variable
       customerResultsContainer.innerHTML = `
         <div class="list-group-item">
           No customers found. 
@@ -88,7 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
     customerResultsContainer.style.display = "block";
   }
   
-
   function selectCustomer(customerData) {
     selectedCustomerDisplay.innerHTML = `
         <span class="fw-bold">${customerData.name}</span>
@@ -112,22 +110,21 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Customer selection cleared (Walk-in)");
   }
 
-  if (clearCustomerButton) { // Add listener only if button exists
+  if (clearCustomerButton) {
     clearCustomerButton.addEventListener("click", resetCustomerSelection);
   }
 
-  // Hide dropdowns when clicking outside
   document.addEventListener("click", (e) => {
-    if (customerSearchInput && !customerSearchInput.contains(e.target) && customerResultsContainer && !customerResultsContainer.contains(e.target)) {
+    if (!customerSearchInput.contains(e.target) && !customerResultsContainer.contains(e.target)) {
       customerResultsContainer.style.display = "none";
     }
-    if (medicineSearchInput && !medicineSearchInput.contains(e.target) && medicineResultsContainer && !medicineResultsContainer.contains(e.target)) {
+    if (!medicineSearchInput.contains(e.target) && !medicineResultsContainer.contains(e.target)) {
       medicineResultsContainer.style.display = "none";
     }
   });
 
   // =========================
-  // Medicine Search & Table
+  // Medicine Search
   // =========================
   const debouncedMedicineSearch = debounce(async (query) => {
     if (query.length < 1) {
@@ -163,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
         item.innerHTML = `
                 ${med.name} <small class="text-muted">(Batch: ${med.batch_number})</small>
                 <span class="badge bg-secondary float-end ms-2">
-                    Stock: ${med.quantity} | ₹${parseFloat(med.price).toFixed(2)}
+                    Stock: ${med.quantity} | ₹${parseFloat(med.price_per_strip).toFixed(2)}/strip
                 </span>`;
         item.addEventListener("click", () => {
           addSelectedItem(med);
@@ -176,10 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function addSelectedItem(medicineData) {
     if (selectedItems[medicineData._id]) {
-      alert(`${medicineData.name} (Batch: ${medicineData.batch_number}) is already added. Please adjust the quantity.`);
+      alert(`${medicineData.name} (Batch: ${medicineData.batch_number}) is already added.`);
       return;
     }
-    selectedItems[medicineData._id] = { data: medicineData, quantity: 1 };
+    selectedItems[medicineData._id] = { data: medicineData, strips: 0, units: 0 };
     renderSelectedItemsTable();
     calculateTotal();
     medicineSearchInput.value = "";
@@ -192,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (Object.keys(selectedItems).length === 0) {
         const placeholderRow = document.createElement("tr");
         placeholderRow.id = "no-items-row";
-        placeholderRow.innerHTML = '<td colspan="7" class="text-center">No items added yet.</td>';
+        placeholderRow.innerHTML = '<td colspan="8" class="text-center">No items added yet.</td>';
         selectedItemsBody.appendChild(placeholderRow);
         return;
     }
@@ -200,20 +197,23 @@ document.addEventListener("DOMContentLoaded", function () {
     for (const medId in selectedItems) {
         const item = selectedItems[medId];
         const med = item.data;
-        const quantity = item.quantity;
-        const itemTotal = (parseFloat(med.price) * quantity).toFixed(2);
+        const stripsInStock = Math.floor(med.quantity / med.units_per_strip);
+        const unitsInStock = med.quantity % med.units_per_strip;
+        const itemTotal = (med.price_per_strip * item.strips) + (med.price_per_unit * item.units);
+
         const row = document.createElement("tr");
         row.dataset.medicineId = medId;
-
         row.innerHTML = `
             <td>${med.name}</td>
             <td>${med.batch_number}</td>
-            <td class="text-end">${parseFloat(med.price).toFixed(2)}</td>
-            <td class="text-center">${med.quantity}</td>
+            <td class="text-end">₹${parseFloat(med.price_per_strip).toFixed(2)}/strip</br>
+            ₹${parseFloat(med.price_per_unit).toFixed(2)}/unit</td>
+            <td class="text-center">${stripsInStock} strips, ${unitsInStock} units</td>
             <td>
-                <input type="number" class="form-control form-control-sm item-quantity" value="${quantity}" min="1" max="${med.quantity}" data-medicine-id="${medId}" required style="width: 80px;">
+                <input type="number" class="form-control form-control-sm item-strips" value="${item.strips}" min="0" max="${stripsInStock}" data-medicine-id="${medId}" style="width: 70px;"> strips
+                <input type="number" class="form-control form-control-sm item-units" value="${item.units}" min="0" max="${med.units_per_strip - 1}" data-medicine-id="${medId}" style="width: 70px;"> units
             </td>
-            <td class="item-total text-end">₹${itemTotal}</td>
+            <td class="item-total text-end">₹${itemTotal.toFixed(2)}</td>
             <td class="text-center">
                 <button type="button" class="btn btn-danger btn-sm remove-item" data-medicine-id="${medId}" title="Remove Item">X</button>
             </td>
@@ -224,14 +224,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addTableEventListeners() {
-      document.querySelectorAll(".item-quantity").forEach(input => {
-          input.removeEventListener('input', handleQuantityChange);
+      document.querySelectorAll(".item-strips, .item-units").forEach(input => {
           input.addEventListener('input', handleQuantityChange);
-          input.removeEventListener('change', handleQuantityChange);
-          input.addEventListener('change', handleQuantityChange); // Use change for final validation if needed
+          input.addEventListener('change', handleQuantityChange);
       });
       document.querySelectorAll(".remove-item").forEach(button => {
-          button.removeEventListener('click', handleRemoveItemClick);
           button.addEventListener('click', handleRemoveItemClick);
       });
   }
@@ -239,132 +236,119 @@ document.addEventListener("DOMContentLoaded", function () {
   function handleQuantityChange(event) {
       const input = event.target;
       const medId = input.dataset.medicineId;
-      let newQuantity = parseInt(input.value, 10);
-      const maxQuantity = parseInt(input.max, 10);
+      const med = selectedItems[medId].data;
+      let strips = parseInt(document.querySelector(`.item-strips[data-medicine-id="${medId}"]`).value, 10) || 0;
+      let units = parseInt(document.querySelector(`.item-units[data-medicine-id="${medId}"]`).value, 10) || 0;
 
-      if (isNaN(newQuantity) || newQuantity < 1) {
-          newQuantity = 1;
-          input.value = 1; // Correct invalid input
-      } else if (newQuantity > maxQuantity) {
-          newQuantity = maxQuantity;
-          input.value = maxQuantity; // Cap at max stock
-          alert(`Only ${maxQuantity} items available for ${selectedItems[medId].data.name} (Batch: ${selectedItems[medId].data.batch_number}).`);
+      // Total units calculation
+      const totalUnitsRequested = (strips * med.units_per_strip) + units;
+      if (totalUnitsRequested > med.quantity) {
+          alert(`Only ${med.quantity} units available in stock for ${med.name}.`);
+          // Reduce to max possible
+          strips = Math.floor(med.quantity / med.units_per_strip);
+          units = med.quantity % med.units_per_strip;
+          document.querySelector(`.item-strips[data-medicine-id="${medId}"]`).value = strips;
+          document.querySelector(`.item-units[data-medicine-id="${medId}"]`).value = units;
       }
 
-      if (selectedItems[medId]) {
-          selectedItems[medId].quantity = newQuantity;
-          const row = input.closest("tr");
-          const itemTotalCell = row.querySelector(".item-total");
-          const price = selectedItems[medId].data.price;
-          itemTotalCell.textContent = `₹${(price * newQuantity).toFixed(2)}`;
-          calculateTotal(); // Recalculate overall totals
-      }
+      // Save values
+      selectedItems[medId].strips = strips;
+      selectedItems[medId].units = units;
+
+      // Update row total
+      const row = input.closest("tr");
+      const itemTotalCell = row.querySelector(".item-total");
+      const totalPrice = (med.price_per_strip * strips) + (med.price_per_unit * units);
+      itemTotalCell.textContent = `₹${totalPrice.toFixed(2)}`;
+
+      calculateTotal();
   }
 
   function handleRemoveItemClick(event) {
-      const button = event.target;
-      const medId = button.dataset.medicineId;
-      if (selectedItems[medId]) {
-          delete selectedItems[medId];
-          renderSelectedItemsTable(); // Re-render the table
-          calculateTotal(); // Recalculate totals
-      }
+      const medId = event.target.dataset.medicineId;
+      delete selectedItems[medId];
+      renderSelectedItemsTable();
+      calculateTotal();
   }
 
   // =========================
-  // Totals Calculation & Form Submission
+  // Totals & Discount
   // =========================
-
   function calculateTotal() {
       let subtotal = 0;
       for (const medId in selectedItems) {
           const item = selectedItems[medId];
-          subtotal += item.data.price * item.quantity;
+          subtotal += (item.data.price_per_strip * item.strips) + (item.data.price_per_unit * item.units);
       }
-      subTotalDisplay.value = subtotal.toFixed(2); // Update subtotal input
-      applyDiscount(); // Recalculate grand total after subtotal changes
+      subTotalDisplay.value = subtotal.toFixed(2);
+      applyDiscount();
   }
 
   function applyDiscount() {
       const subtotal = parseFloat(subTotalDisplay.value) || 0;
       let discount = parseFloat(discountInput.value) || 0;
-
-      if (discount < 0) {
-          discount = 0;
-          discountInput.value = discount.toFixed(2);
-      } else if (discount > subtotal) {
-          discount = subtotal;
-          discountInput.value = discount.toFixed(2);
-          // Optionally alert user discount was capped
-          // alert("Discount cannot exceed subtotal.");
-      }
-
-      const grandTotal = subtotal - discount;
-      totalAmountDisplay.value = grandTotal.toFixed(2); // Update total input
+      if (discount < 0) discount = 0;
+      if (discount > subtotal) discount = subtotal;
+      discountInput.value = discount.toFixed(2);
+      totalAmountDisplay.value = (subtotal - discount).toFixed(2);
   }
 
-  // Add event listeners for discount changes
   discountInput.addEventListener("input", applyDiscount);
-  discountInput.addEventListener("change", applyDiscount); // Handles pasting/direct set
+  discountInput.addEventListener("change", applyDiscount);
 
-  // Form Submission Logic
+  // =========================
+  // Form Submission
+  // =========================
   saleForm.addEventListener("submit", function (event) {
-      hiddenItemFieldsContainer.innerHTML = ""; // Clear previous hidden fields
+      hiddenItemFieldsContainer.innerHTML = "";
 
       if (Object.keys(selectedItems).length === 0) {
           alert("Please add at least one item to the sale.");
-          event.preventDefault(); // Prevent form submission
+          event.preventDefault();
           return;
       }
 
-      let isValid = true;
-      // Add hidden fields for each item
       for (const medId in selectedItems) {
           const item = selectedItems[medId];
-
-          if (item.quantity <= 0) { // Final check before submission
-              alert(`Quantity for ${item.data.name} must be positive.`);
-              isValid = false;
-              break;
+          const totalUnits = (item.strips * item.data.units_per_strip) + item.units;
+          if (totalUnits <= 0) {
+              alert(`Please enter a valid quantity for ${item.data.name}.`);
+              event.preventDefault();
+              return;
           }
 
-          // Medicine ID (links to the specific batch)
+          // Hidden fields
           const idInput = document.createElement("input");
           idInput.type = "hidden";
           idInput.name = "medicine_ids[]";
           idInput.value = medId;
           hiddenItemFieldsContainer.appendChild(idInput);
 
-          // Quantity
-          const qtyInput = document.createElement("input");
-          qtyInput.type = "hidden";
-          qtyInput.name = "quantities[]";
-          qtyInput.value = item.quantity;
-          hiddenItemFieldsContainer.appendChild(qtyInput);
+          const stripsInput = document.createElement("input");
+          stripsInput.type = "hidden";
+          stripsInput.name = "strips[]";
+          stripsInput.value = item.strips;
+          hiddenItemFieldsContainer.appendChild(stripsInput);
 
-          // Price (at time of sale)
+          const unitsInput = document.createElement("input");
+          unitsInput.type = "hidden";
+          unitsInput.name = "units[]";
+          unitsInput.value = item.units;
+          hiddenItemFieldsContainer.appendChild(unitsInput);
+
           const priceInput = document.createElement("input");
           priceInput.type = "hidden";
           priceInput.name = "prices[]";
-          priceInput.value = item.data.price;
+          priceInput.value = (item.data.price_per_strip * item.strips) + (item.data.price_per_unit * item.units);
           hiddenItemFieldsContainer.appendChild(priceInput);
       }
 
-      if (!isValid) {
-          event.preventDefault(); // Prevent form submission if validation failed
-          return;
-      }
-
-      // Recalculate final total one last time before submission (optional, belt-and-suspenders)
       calculateTotal();
-
-      // Allow form submission to proceed
-      console.log("Submitting sale...");
   });
 
-  // --- Initial Setup ---
-  resetCustomerSelection(); // Ensure walk-in is default
-  renderSelectedItemsTable(); // Render empty table initially
-  calculateTotal(); // Calculate initial totals (should be 0)
+  // Initial
+  resetCustomerSelection();
+  renderSelectedItemsTable();
+  calculateTotal();
 
-}); // End DOMContentLoaded
+});
