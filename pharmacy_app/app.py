@@ -651,5 +651,29 @@ def print_invoice_html(sale_id):
         current_time=datetime.now()
     )
 
+@app.route('/sales/delete/<sale_id>')
+def delete_sale(sale_id):
+    try:
+        sale = db.sales.find_one({"_id": ObjectId(sale_id)})
+        if not sale:
+            flash('Sale not found.', 'danger')
+            return redirect(url_for('sales'))
+
+        # Restore stock for each item in the sale
+        for item in sale.get("items", []):
+            med_id = item["medicine_id"]
+            total_units = item["strips"] * (item.get("units_per_strip", 1) or 1) + item["units"]
+            db.medicines.update_one(
+                {"_id": ObjectId(med_id)},
+                {"$inc": {"quantity": total_units}}
+            )
+
+        db.sales.delete_one({"_id": ObjectId(sale_id)})
+        flash('Sale deleted successfully.', 'success')
+    except Exception as e:
+        flash(f'Error deleting sale: {str(e)}', 'danger')
+
+    return redirect(url_for('sales'))
+
 if __name__ == '__main__':
     app.run(debug=True)
