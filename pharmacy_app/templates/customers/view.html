@@ -39,7 +39,7 @@
             <tbody>
               {% for sale in sales %}
               <tr>
-                <td>{{ sale._id }}</td>
+                <td>{{ sale.invoice_number }}</td>
                 <td>{{ sale.date }}</td>
                 <td>{{ sale.total_amount or 'N/A' }}</td>
                 <td>
