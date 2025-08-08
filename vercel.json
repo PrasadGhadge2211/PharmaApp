@@ -1,1 +1,9 @@
-
+{
+  "version": 2,
+  "builds": [
+    { "src": "pharmacy_app/app.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "pharmacy_app/app.py" }
+  ]
+}
