@@ -175,11 +175,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addSelectedItem(medicineData) {
-    if (selectedItems[medicineData.id]) {
+    if (selectedItems[medicineData._id]) {
       alert(`${medicineData.name} (Batch: ${medicineData.batch_number}) is already added. Please adjust the quantity.`);
       return;
     }
-    selectedItems[medicineData.id] = { data: medicineData, quantity: 1 };
+    selectedItems[medicineData._id] = { data: medicineData, quantity: 1 };
     renderSelectedItemsTable();
     calculateTotal();
     medicineSearchInput.value = "";

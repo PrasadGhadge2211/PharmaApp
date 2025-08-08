@@ -61,14 +61,11 @@
         <td>{{ med['supplier'] or '-' }}</td>
         <td>{{ med['company'] or '-' }}</td>
         <td>
-          <a
-            href="{{ url_for('edit_medicine', id=med['id']) }}"
-            class="btn btn-sm btn-warning"
-            >Edit</a
-          >
+          <a href="{{ url_for('edit_medicine', id=med['_id']) }}"class="btn btn-sm btn-warning">Edit</a>
+
         </td>
         <td>
-          <a href="{{ url_for('delete_medicine', id= med['id'])}}"class="btn btn-sm btn-warning">Delete</a>
+          <a href="{{ url_for('delete_medicine', id=med['_id']) }}"class="btn btn-sm btn-warning">Delete</a>
         </td>
       </tr>
       {% endfor %} {% else %}

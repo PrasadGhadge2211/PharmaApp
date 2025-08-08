@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h2>General Inventory</h2>
-  <a href="{{ url_for('gen_add') }}" class="btn btn-primary">
+  <a href="{{ url_for('add_general') }}" class="btn btn-primary">
     Add Medicine
   </a>
 </div>
@@ -9,7 +9,7 @@
 <!-- Search Form -->
 <div class="card mb-4">
   <div class="card-body">
-    <form method="GET" action="{{ url_for('gen_inventory') }}" class="row g-3">
+    <form method="GET" action="{{ url_for('general_inventory') }}" class="row g-3">
       <div class="col-md-8">
         <input
           type="text"
@@ -24,7 +24,7 @@
       </div>
       <div class="col-md-2">
         <a
-          href="{{ url_for('gen_inventory') }}"
+          href="{{ url_for('general_inventory') }}"
           class="btn btn-outline-secondary w-100"
           >Reset</a
         >
@@ -68,7 +68,7 @@
           >
         </td>
         <td>
-          <a href="{{ url_for('delete_gen', id= med['id'])}}"class="btn btn-sm btn-warning">Delete</a>
+          <a href="{{ url_for('delete_general', id= med['id'])}}"class="btn btn-sm btn-warning">Delete</a>
         </td>
       </tr>
       {% endfor %} {% else %}

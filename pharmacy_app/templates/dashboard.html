@@ -2,6 +2,7 @@
 {% block content %}
 
 <div class="row">
+  <!-- Expiry Alerts -->
   <div class="col-md-6 mb-4">
     <div class="card">
       <div class="card-header bg-warning text-dark">
@@ -27,11 +28,11 @@
               {% set days_left = (expiry_date - now.date()).days %}
               {% if days_left < 7 %}
               <tr class="table-danger text-white">
-                <td>{{ med['name'] }}</td>
-                <td>{{ med['batch_number'] }}</td>
-                <td>{{ med[ 'company' ] or '-'}}</td>
+                <td>{{ med['name']|default('-') }}</td>
+                <td>{{ med['batch_number']|default('-') }}</td>
+                <td>{{ med['company']|default('-') }}</td>
                 <td>{{ med['expiry_date'] }}</td>
-                <td>{{ med['supplier'] }}</td>
+                <td>{{ med['supplier']|default('-') }}</td>
                 {% if days_left < 0 %}
                 <td class="text-warning">Expired</td>
                 {% else %}
@@ -50,6 +51,7 @@
     </div>
   </div>
 
+  <!-- Low Stock Alerts -->
   <div class="col-md-6 mb-4">
     <div class="card">
       <div class="card-header bg-danger text-white">
@@ -69,9 +71,9 @@
             <tbody>
               {% for med in low_stock %}
               <tr>
-                <td>{{ med['name'] }}</td>
-                <td>{{ med['quantity'] }}</td>
-                <td>₹{{ "%.2f"|format(med['price']) }}</td>
+                <td>{{ med['name']|default('-') }}</td>
+                <td>{{ med['quantity']|default(0) }}</td>
+                <td>₹{{ "%.2f"|format(med['price']|default(0)) }}</td>
               </tr>
               {% endfor %}
             </tbody>
@@ -85,6 +87,7 @@
   </div>
 </div>
 
+<!-- Recent Sales -->
 <div class="card mb-4">
   <div class="card-header">
     <h5>Recent Sales</h5>
@@ -105,12 +108,12 @@
           {% for sale in recent_sales %}
           <tr>
             <td>
-              <a href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}">
+              <a href="{{ url_for('view_invoice', sale_id=sale['_id']) }}">
                 {{ sale['invoice_number'] }}
               </a>
             </td>
             <td>{{ sale['date']|local_datetime }}</td>
-            <td>{{ sale['customer_name'] or 'Walk-in' }}</td>
+            <td>{{ sale['customer_name']|default('Walk-in') }}</td>
             <td>₹{{ "%.2f"|format(sale['total_amount']) }}</td>
           </tr>
           {% endfor %}
@@ -122,4 +125,5 @@
     {% endif %}
   </div>
 </div>
+
 {% endblock %}

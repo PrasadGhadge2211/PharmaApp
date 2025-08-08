@@ -2,3 +2,6 @@ flask
 pdfkit
 wkhtmltopdf
 python-dotenv
+pymongo
+certifi
+weasyprint

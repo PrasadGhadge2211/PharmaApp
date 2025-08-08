@@ -1,0 +1,1389 @@
+2025-04-07 17:43:31 [INFO   ] app: Loaded configuration from config.py
+2025-04-07 17:43:31 [INFO   ] app: ========================================
+2025-04-07 17:43:31 [INFO   ] app: ========================================
+2025-04-07 17:43:31 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-07 17:43:31 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-07 17:43:31 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-07 17:43:31 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-07 17:43:31 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-07 17:43:31 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-07 17:43:31 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-07 17:43:31 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-07 17:43:31 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-07 17:43:31 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-07 17:43:31 [INFO   ] app: WeasyPrint Available: True
+2025-04-07 17:43:31 [INFO   ] app: WeasyPrint Available: True
+2025-04-07 17:43:31 [INFO   ] app: ========================================
+2025-04-07 17:43:31 [INFO   ] app: ========================================
+2025-04-07 17:43:31 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-07 17:43:31 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-07 17:43:31 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-07 17:43:31 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-07 17:43:31 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-07 17:43:35 [INFO   ] app: Accessed dashboard.
+2025-04-07 17:43:35 [INFO   ] app: Accessed dashboard.
+2025-04-07 17:43:35 [ERROR  ] app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 233, in dashboard
+    return render_template('dashboard.html',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/dashboard.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/dashboard.html", line 74, in block 'content'
+    <td>₹{{ "%.2f"|format(med['price']) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'sqlite3.Row object' has no attribute 'price'
+2025-04-07 17:43:35 [ERROR  ] app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 233, in dashboard
+    return render_template('dashboard.html',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/dashboard.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/dashboard.html", line 74, in block 'content'
+    <td>₹{{ "%.2f"|format(med['price']) }}</td>
+    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/filters.py", line 1043, in do_format
+    return soft_str(value) % (kwargs or args)
+           ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+jinja2.exceptions.UndefinedError: 'sqlite3.Row object' has no attribute 'price'
+2025-04-07 17:43:35 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:43:35] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-04-07 17:43:36 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:43:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-07 17:45:18 [INFO   ] app: Loaded configuration from config.py
+2025-04-07 17:45:18 [INFO   ] app: ========================================
+2025-04-07 17:45:18 [INFO   ] app: ========================================
+2025-04-07 17:45:18 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-07 17:45:18 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-07 17:45:18 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-07 17:45:18 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-07 17:45:18 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-07 17:45:18 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-07 17:45:18 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-07 17:45:18 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-07 17:45:18 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-07 17:45:18 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-07 17:45:18 [INFO   ] app: WeasyPrint Available: True
+2025-04-07 17:45:18 [INFO   ] app: WeasyPrint Available: True
+2025-04-07 17:45:18 [INFO   ] app: ========================================
+2025-04-07 17:45:18 [INFO   ] app: ========================================
+2025-04-07 17:45:18 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-07 17:45:18 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-07 17:45:18 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-07 17:45:18 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-07 17:45:18 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-07 17:45:25 [INFO   ] app: Accessed dashboard.
+2025-04-07 17:45:25 [INFO   ] app: Accessed dashboard.
+2025-04-07 17:45:25 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:45:25] "GET / HTTP/1.1" 200 -
+2025-04-07 17:45:25 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:45:25] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-04-07 17:45:25 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:45:25] "GET /static/js/scripts.js HTTP/1.1" 200 -
+2025-04-07 17:45:29 [INFO   ] app: Accessed inventory list.
+2025-04-07 17:45:29 [INFO   ] app: Accessed inventory list.
+2025-04-07 17:45:29 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 271, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-07 17:45:29 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 271, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-07 17:45:29 [INFO   ] werkzeug: 127.0.0.1 - - [07/Apr/2025 17:45:29] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:22:39 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:22:39 [INFO   ] app: ========================================
+2025-04-08 11:22:39 [INFO   ] app: ========================================
+2025-04-08 11:22:39 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:22:39 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:22:39 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:22:39 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:22:39 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:22:39 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:22:39 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:22:39 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:22:39 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:22:39 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:22:39 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:22:39 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:22:39 [INFO   ] app: ========================================
+2025-04-08 11:22:39 [INFO   ] app: ========================================
+2025-04-08 11:22:39 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-08 11:22:39 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:22:39 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:22:39 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:22:39 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:22:44 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:22:44 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:22:44 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:44] "GET / HTTP/1.1" 200 -
+2025-04-08 11:22:45 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:45] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:22:45 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:45] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:22:45 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-08 11:22:51 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:22:51 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:22:51 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:51] "GET / HTTP/1.1" 200 -
+2025-04-08 11:22:51 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:51] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:22:51 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:51] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:22:52 [INFO   ] app: Accessed general items list.
+2025-04-08 11:22:52 [INFO   ] app: Accessed general items list.
+2025-04-08 11:22:52 [ERROR  ] app: Exception on /gen_inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1143, in gen_inventory
+    return render_template('general/list.html', medicines=items, search_query=search_query) # Reuse template variable name?
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/general/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/general/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_general', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_general' with values ['id']. Did you forget to specify values ['item_id']?
+2025-04-08 11:22:52 [ERROR  ] app: Exception on /gen_inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1143, in gen_inventory
+    return render_template('general/list.html', medicines=items, search_query=search_query) # Reuse template variable name?
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/general/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/general/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_general', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_general' with values ['id']. Did you forget to specify values ['item_id']?
+2025-04-08 11:22:52 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:52] "[35m[1mGET /gen_inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:22:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:22:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:22:57 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:22:57 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:22:57 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:22:57] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:23:00 [INFO   ] app: Accessed sales list.
+2025-04-08 11:23:00 [INFO   ] app: Accessed sales list.
+2025-04-08 11:23:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:00] "GET /sales HTTP/1.1" 200 -
+2025-04-08 11:23:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:23:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:00] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:23:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:02] "GET /sales/new HTTP/1.1" 200 -
+2025-04-08 11:23:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:23:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:02] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:23:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:02] "[36mGET /static/js/sales.js HTTP/1.1[0m" 304 -
+2025-04-08 11:23:06 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:06] "GET /api/search_customers?query=Samarth%20Gayakhe HTTP/1.1" 200 -
+2025-04-08 11:23:08 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:08] "GET /customers/add HTTP/1.1" 200 -
+2025-04-08 11:23:08 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:08] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:23:08 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:08] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:23:29 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:23:29 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:23:29 [ERROR  ] database: Database transaction error: table customers has no column named email
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/database.py", line 132, in get_db_cursor
+    yield cursor
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named email
+2025-04-08 11:23:29 [WARNING] database: DB transaction rolled back due to error.
+2025-04-08 11:23:29 [ERROR  ] app: Error adding customer: table customers has no column named email
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named email
+2025-04-08 11:23:29 [ERROR  ] app: Error adding customer: table customers has no column named email
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named email
+2025-04-08 11:23:29 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:29] "POST /customers/add HTTP/1.1" 200 -
+2025-04-08 11:23:29 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:29] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:23:29 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:23:29] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:02 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:24:02 [INFO   ] app: ========================================
+2025-04-08 11:24:02 [INFO   ] app: ========================================
+2025-04-08 11:24:02 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:24:02 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:24:02 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:24:02 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:24:02 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:24:02 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:24:02 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:24:02 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:24:02 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:24:02 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:24:02 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:24:02 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:24:02 [INFO   ] app: ========================================
+2025-04-08 11:24:02 [INFO   ] app: ========================================
+2025-04-08 11:24:02 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-08 11:24:02 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:24:02 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:24:02 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:24:02 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:24:12 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:24:12 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:24:12 [ERROR  ] database: Database transaction error: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/database.py", line 132, in get_db_cursor
+    yield cursor
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:12 [WARNING] database: DB transaction rolled back due to error.
+2025-04-08 11:24:12 [ERROR  ] app: Error adding customer: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:12 [ERROR  ] app: Error adding customer: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:12 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:12] "POST /customers/add HTTP/1.1" 200 -
+2025-04-08 11:24:12 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:12] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:24:12 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:12] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:18 [INFO   ] app: Accessed sales list.
+2025-04-08 11:24:18 [INFO   ] app: Accessed sales list.
+2025-04-08 11:24:18 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:18] "GET /sales HTTP/1.1" 200 -
+2025-04-08 11:24:18 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:18] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:24:18 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:18] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:20] "GET /sales/new HTTP/1.1" 200 -
+2025-04-08 11:24:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:24:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:20] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:20] "[36mGET /static/js/sales.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:23 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:23] "GET /api/search_customers?query=Samarth%20Gayakhe HTTP/1.1" 200 -
+2025-04-08 11:24:23 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:23] "GET /customers/add HTTP/1.1" 200 -
+2025-04-08 11:24:23 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:23] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:24:23 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:23] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:24:30 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:24:30 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:24:30 [ERROR  ] database: Database transaction error: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/database.py", line 132, in get_db_cursor
+    yield cursor
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:30 [WARNING] database: DB transaction rolled back due to error.
+2025-04-08 11:24:30 [ERROR  ] app: Error adding customer: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:30 [ERROR  ] app: Error adding customer: table customers has no column named address
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.OperationalError: table customers has no column named address
+2025-04-08 11:24:30 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:30] "POST /customers/add HTTP/1.1" 200 -
+2025-04-08 11:24:30 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:30] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:24:30 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:24:30] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:25:35 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:25:35 [INFO   ] app: ========================================
+2025-04-08 11:25:35 [INFO   ] app: ========================================
+2025-04-08 11:25:35 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:25:35 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:25:35 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:25:35 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:25:35 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:25:35 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:25:35 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:25:35 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:25:35 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:25:35 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:25:35 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:25:35 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:25:35 [INFO   ] app: ========================================
+2025-04-08 11:25:35 [INFO   ] app: ========================================
+2025-04-08 11:25:35 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-08 11:25:35 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:25:35 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:25:35 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:25:35 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:25:54 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:25:54 [INFO   ] app: ========================================
+2025-04-08 11:25:54 [INFO   ] app: ========================================
+2025-04-08 11:25:54 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:25:54 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:25:54 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:25:54 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:25:54 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:25:54 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:25:54 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:25:54 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:25:54 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:25:54 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:25:54 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:25:54 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:25:54 [INFO   ] app: ========================================
+2025-04-08 11:25:54 [INFO   ] app: ========================================
+2025-04-08 11:25:54 [INFO   ] database: Database not found at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Initializing...
+2025-04-08 11:25:54 [INFO   ] database: Creating database tables...
+2025-04-08 11:25:54 [INFO   ] database: Database initialized successfully.
+2025-04-08 11:25:54 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:25:54 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:25:54 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:25:54 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:26:02 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:26:02 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:26:02 [ERROR  ] database: Database transaction error: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/database.py", line 132, in get_db_cursor
+    yield cursor
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+2025-04-08 11:26:02 [WARNING] database: DB transaction rolled back due to error.
+2025-04-08 11:26:02 [ERROR  ] app: Error adding customer: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+2025-04-08 11:26:02 [ERROR  ] app: Error adding customer: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1337, in add_customer
+    cursor.execute('''
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 3, and there are 4 supplied.
+2025-04-08 11:26:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:26:02] "POST /customers/add HTTP/1.1" 200 -
+2025-04-08 11:26:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:26:02] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:26:02 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:26:02] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:26:43 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:26:43 [INFO   ] app: ========================================
+2025-04-08 11:26:43 [INFO   ] app: ========================================
+2025-04-08 11:26:43 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:26:43 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:26:43 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:26:43 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:26:43 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:26:43 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:26:43 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:26:43 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:26:43 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:26:43 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:26:43 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:26:43 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:26:43 [INFO   ] app: ========================================
+2025-04-08 11:26:43 [INFO   ] app: ========================================
+2025-04-08 11:26:43 [INFO   ] database: Database not found at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Initializing...
+2025-04-08 11:26:43 [INFO   ] database: Creating database tables...
+2025-04-08 11:26:43 [INFO   ] database: Database initialized successfully.
+2025-04-08 11:26:43 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:26:43 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:26:43 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:26:43 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:26:48 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:26:48 [INFO   ] app: Attempting to add new customer.
+2025-04-08 11:26:48 [INFO   ] app: Added customer: Samarth (Phone: 8519877501)
+2025-04-08 11:26:48 [INFO   ] app: Added customer: Samarth (Phone: 8519877501)
+2025-04-08 11:26:48 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:26:48] "[32mPOST /customers/add HTTP/1.1[0m" 302 -
+2025-04-08 11:26:48 [INFO   ] app: Accessed customer list.
+2025-04-08 11:26:48 [INFO   ] app: Accessed customer list.
+2025-04-08 11:26:49 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:26:49 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:26:49 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:26:49] "[35m[1mGET /customers HTTP/1.1[0m" 500 -
+2025-04-08 11:27:18 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:18] "GET /customers/add HTTP/1.1" 200 -
+2025-04-08 11:27:20 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:27:20 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:27:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:20] "GET / HTTP/1.1" 200 -
+2025-04-08 11:27:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:20] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:24 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:27:24 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:27:24 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:24] "GET /inventory HTTP/1.1" 200 -
+2025-04-08 11:27:24 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:24 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:24] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:28 [INFO   ] app: Accessed general items list.
+2025-04-08 11:27:28 [INFO   ] app: Accessed general items list.
+2025-04-08 11:27:28 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:28] "GET /gen_inventory HTTP/1.1" 200 -
+2025-04-08 11:27:28 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:28] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:28 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:28] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:30 [INFO   ] app: Accessed customer list.
+2025-04-08 11:27:30 [INFO   ] app: Accessed customer list.
+2025-04-08 11:27:30 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:27:30 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:27:30 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:30] "[35m[1mGET /customers HTTP/1.1[0m" 500 -
+2025-04-08 11:27:47 [INFO   ] app: Accessed customer list.
+2025-04-08 11:27:47 [INFO   ] app: Accessed customer list.
+2025-04-08 11:27:47 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:27:47 [ERROR  ] app: Exception on /customers [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 1318, in customers
+    return render_template('customers/list.html', customers=customer_list)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/customers/list.html", line 27, in block 'content'
+    href="{{ url_for('view_customer', id=customer['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'view_customer' with values ['id']. Did you forget to specify values ['cust_id']?
+2025-04-08 11:27:47 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:47] "[35m[1mGET /customers HTTP/1.1[0m" 500 -
+2025-04-08 11:27:50 [INFO   ] app: Accessed sales list.
+2025-04-08 11:27:50 [INFO   ] app: Accessed sales list.
+2025-04-08 11:27:50 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:50] "GET /sales HTTP/1.1" 200 -
+2025-04-08 11:27:50 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:50] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:50 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:50] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:52 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:52] "GET /sales/new HTTP/1.1" 200 -
+2025-04-08 11:27:52 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:52] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:52 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:52] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:52 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:52] "[36mGET /static/js/sales.js HTTP/1.1[0m" 304 -
+2025-04-08 11:27:56 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:56] "GET /api/search_medicines?query=testing HTTP/1.1" 200 -
+2025-04-08 11:27:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:27:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:27:57 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:57] "GET /inventory HTTP/1.1" 200 -
+2025-04-08 11:27:57 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:57] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:27:57 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:27:57] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:28:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:00] "GET /inventory/add HTTP/1.1" 200 -
+2025-04-08 11:28:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:28:00 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:00] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:28:34 [INFO   ] app: Attempting to add new medicine.
+2025-04-08 11:28:34 [INFO   ] app: Attempting to add new medicine.
+2025-04-08 11:28:34 [INFO   ] app: Added medicine: CombiFlame (Batch: D4B6T)
+2025-04-08 11:28:34 [INFO   ] app: Added medicine: CombiFlame (Batch: D4B6T)
+2025-04-08 11:28:34 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:34] "[32mPOST /inventory/add HTTP/1.1[0m" 302 -
+2025-04-08 11:28:34 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:28:34 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:28:34 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:28:34 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:28:34 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:34] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:28:55 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:55] "GET /inventory/add HTTP/1.1" 200 -
+2025-04-08 11:28:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:28:57 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:28:57 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:28:57 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:28:57 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:28:57] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:29:10 [INFO   ] app: Loaded configuration from config.py
+2025-04-08 11:29:10 [INFO   ] app: ========================================
+2025-04-08 11:29:10 [INFO   ] app: ========================================
+2025-04-08 11:29:10 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:29:10 [INFO   ] app: Pharmacy Application Starting Up...
+2025-04-08 11:29:10 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:29:10 [INFO   ] app: Base directory: /Users/samarthgayakhe/Documents/pharmacy_app
+2025-04-08 11:29:10 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:29:10 [INFO   ] app: Database location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db
+2025-04-08 11:29:10 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:29:10 [INFO   ] app: Log file location: /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy_app.log
+2025-04-08 11:29:10 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:29:10 [INFO   ] app: Timezone: Asia/Kolkata
+2025-04-08 11:29:10 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:29:10 [INFO   ] app: WeasyPrint Available: True
+2025-04-08 11:29:10 [INFO   ] app: ========================================
+2025-04-08 11:29:10 [INFO   ] app: ========================================
+2025-04-08 11:29:10 [INFO   ] database: Database already exists at /Users/samarthgayakhe/Documents/pharmacy_app/pharmacy.db. Skipping initialization.
+2025-04-08 11:29:10 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:29:10 [INFO   ] app: Starting application using Flask development server (Debug Mode: False)...
+2025-04-08 11:29:10 [INFO   ] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-08 11:29:10 [INFO   ] werkzeug: [33mPress CTRL+C to quit[0m
+2025-04-08 11:29:16 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:29:16 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:29:16 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:16] "GET / HTTP/1.1" 200 -
+2025-04-08 11:29:16 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:16] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:29:16 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:16] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:29:17 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:29:17 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:29:17 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:29:17 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:29:17 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:17] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -
+2025-04-08 11:29:20 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:29:20 [INFO   ] app: Accessed dashboard.
+2025-04-08 11:29:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:20] "GET / HTTP/1.1" 200 -
+2025-04-08 11:29:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-04-08 11:29:20 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:20] "[36mGET /static/js/scripts.js HTTP/1.1[0m" 304 -
+2025-04-08 11:29:45 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:29:45 [INFO   ] app: Accessed inventory list.
+2025-04-08 11:29:45 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:29:45 [ERROR  ] app: Exception on /inventory [GET]
+Traceback (most recent call last):
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/app.py", line 950, in inventory
+    return render_template('inventory/list.html', medicines=medicines, search_query=search_query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 1, in top-level template code
+    {% extends "base.html" %} {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/base.html", line 75, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/templates/inventory/list.html", line 65, in block 'content'
+    href="{{ url_for('edit_medicine', id=med['id']) }}"
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/samarthgayakhe/Documents/pharmacy_app/PharmacyApp/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'edit_medicine' with values ['id']. Did you forget to specify values ['med_id']?
+2025-04-08 11:29:45 [INFO   ] werkzeug: 127.0.0.1 - - [08/Apr/2025 11:29:45] "[35m[1mGET /inventory HTTP/1.1[0m" 500 -

@@ -28,12 +28,12 @@
         <td>{{ sale['payment_method'] or 'Not specified' }}</td>
         <td>
           <a
-            href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}"
+            href="{{ url_for('view_invoice', sale_id=sale['_id']) }}"
             class="btn btn-sm btn-info"
             >View</a
           >
           <a
-            href="{{ url_for('print_invoice', invoice_number=sale['invoice_number']) }}"
+            href="{{ url_for('print_invoice', sale_id=sale['_id']) }}"
             class="btn btn-sm btn-secondary"
             >Print</a
           >
