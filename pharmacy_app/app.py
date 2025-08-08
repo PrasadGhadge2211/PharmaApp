@@ -21,7 +21,6 @@ app = Flask(__name__, static_folder='static')
 FONT_PATH = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
 pdfmetrics.registerFont(TTFont('DejaVuSans', FONT_PATH))
 
-ca = certifi.where()
 client = MongoClient(os.environ.get("MONGODB_URI", ""))
 db = client['pharmacy_db']
 
