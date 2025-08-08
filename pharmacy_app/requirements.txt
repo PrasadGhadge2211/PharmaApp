@@ -1,7 +1,6 @@
-flask
-pdfkit
-wkhtmltopdf
-python-dotenv
-pymongo
-certifi
-weasyprint
+Flask==3.0.3
+pymongo==4.8.0
+pytz==2025.1
+certifi==2025.7.4
+bson==0.5.10
+reportlab==4.2.5
