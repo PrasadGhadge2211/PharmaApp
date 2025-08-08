@@ -41,7 +41,7 @@
             <strong>Invoice ID:</strong> {{ sale._id }}<br>
             <p><strong>Date:</strong>
                 {% if sale.date %}
-                    {{ sale.date.strftime("%Y-%m-%d %H:%M") }}
+                    {{ sale.date.strftime("%Y-%m-%d") }}
                 {% else %}
                     N/A
                 {% endif %}
