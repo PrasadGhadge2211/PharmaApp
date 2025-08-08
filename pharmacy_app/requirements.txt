@@ -2,5 +2,4 @@ Flask
 pymongo
 pytz
 certifi
-bson
 reportlab
