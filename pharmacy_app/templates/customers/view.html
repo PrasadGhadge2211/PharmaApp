@@ -1,51 +1,63 @@
-{% extends "base.html" %} {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h2>Customer Details</h2>
-  <a href="{{ url_for('customers') }}" class="btn btn-secondary"
-    >Back to List</a
-  >
-</div>
+{% extends "base.html" %}
+{% block content %}
 
-<div class="card mb-4">
-  <div class="card-body">
-    <h5 class="card-title">{{ customer['name'] }}</h5>
-    <p class="card-text">
-      <strong>Phone:</strong> {{ customer['phone'] or 'Not provided' }}<br />
-      <strong>Address:</strong> {{ customer['address'] or 'Not provided' }}<br />
-      <strong>Registered:</strong> {{ customer['date_registered'] }}
-    </p>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Customer Info -->
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Customer Details</h5>
+        </div>
+        <div class="card-body">
+          <h4>{{ customer.name }}</h4>
+          <hr>
+          <p><strong>Phone:</strong> {{ customer.phone or 'N/A' }}</p>
+          <p><strong>Address:</strong> {{ customer.address or 'N/A' }}</p>
+        </div>
+      </div>
+      <a href="{{ url_for('customers') }}" class="btn btn-secondary mt-3 w-100">Back to Customers</a>
+    </div>
+
+    <!-- Sales History -->
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Sales History</h5>
+        </div>
+        <div class="card-body p-0">
+          {% if sales %}
+          <table class="table table-striped mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th>Sale ID</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for sale in sales %}
+              <tr>
+                <td>{{ sale._id }}</td>
+                <td>{{ sale.date }}</td>
+                <td>{{ sale.total_amount or 'N/A' }}</td>
+                <td>
+                  <a href="{{ url_for('view_invoice', sale_id=sale._id) }}" class="btn btn-sm btn-primary">View</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <div class="p-3">
+            <p class="mb-0 text-muted">No sales found for this customer.</p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<h4 class="mb-3">Purchase History</h4>
-{% if purchases %}
-<div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Invoice #</th>
-        <th>Date</th>
-        <th>Amount</th>
-        <th>Payment Method</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for sale in purchases %}
-      <tr>
-        <td>
-          <a
-            href="{{ url_for('view_invoice', invoice_number=sale['invoice_number']) }}"
-            >{{ sale['invoice_number'] }}</a
-          >
-        </td>
-        <td>{{ sale['date'] }}</td>
-        <td>₹{{ "%.2f"|format(sale['total_amount']) }}</td>
-        <td>{{ sale['payment_method'] or 'Not specified' }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-{% else %}
-<p class="text-muted">No purchases found for this customer.</p>
-{% endif %} {% endblock %}
+{% endblock %}

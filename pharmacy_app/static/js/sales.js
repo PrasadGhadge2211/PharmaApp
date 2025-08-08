@@ -92,13 +92,13 @@ document.addEventListener("DOMContentLoaded", function () {
         <span class="fw-bold">${customerData.name}</span>
         <small class="text-muted ms-1">(${customerData.phone || "No Phone"})</small>
      `;
-    hiddenCustomerIdInput.value = customerData.id;
+    hiddenCustomerIdInput.value = customerData._id;
     clearCustomerButton.style.display = "inline-block";
     customerSearchInput.value = "";
     customerSearchInput.placeholder = customerData.name;
     customerResultsContainer.innerHTML = "";
     customerResultsContainer.style.display = "none";
-    console.log(`Selected Customer ID: ${customerData.id}`);
+    console.log(`Selected Customer ID: ${customerData._id}`);
   }
 
   function resetCustomerSelection() {
