@@ -7,7 +7,7 @@ from io import BytesIO
 import os
 import random
 import pytz
-import certifi
+
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -22,7 +22,7 @@ FONT_PATH = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
 pdfmetrics.registerFont(TTFont('DejaVuSans', FONT_PATH))
 
 ca = certifi.where()
-client = MongoClient(os.environ.get("MONGODB_URI", ""), tlsCAFile=ca)
+client = MongoClient(os.environ.get("MONGODB_URI", ""))
 db = client['pharmacy_db']
 
 LOCAL_TIMEZONE = pytz.timezone('Asia/Kolkata')
