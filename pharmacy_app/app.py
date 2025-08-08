@@ -363,8 +363,8 @@ def view_customer(id):
 
     # Convert ObjectId to string for template usage
     for sale in sales:
-        sale["_id"] = str(sale["_id"])
-        sale["date"] = sale["date"].strftime('%Y-%m-%d %H:%M:%S') if isinstance(sale["date"], datetime) else sale["date"]
+        sale["_id"] = str(sale["invoice_number"])
+        sale["date"] = sale["date"].strftime('%Y-%m-%d') if isinstance(sale["date"], datetime) else sale["date"]
 
     return render_template('customers/view.html', customer=customer, sales=sales)
 
