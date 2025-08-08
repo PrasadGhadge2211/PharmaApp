@@ -17,13 +17,12 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 app = Flask(__name__, static_folder='static')
-app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key')
 
 FONT_PATH = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
 pdfmetrics.registerFont(TTFont('DejaVuSans', FONT_PATH))
 
 ca = certifi.where()
-client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=ca)
+client = MongoClient(os.environ.get("MONGODB_URI", ""), tlsCAFile=ca)
 db = client['pharmacy_db']
 
 LOCAL_TIMEZONE = pytz.timezone('Asia/Kolkata')
