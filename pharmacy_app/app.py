@@ -420,8 +420,7 @@ def new_sale():
             return redirect(url_for('sales'))
 
         except Exception as e:
-            print(f"Error processing sale: {e}")
-            return jsonify({"error": "Failed to process sale"}), 500
+            return jsonify({"error": f"Failed to process sale: {e}"}), 500
 
     return render_template('sales/new.html', customers=customers, medicines=medicines)
 
