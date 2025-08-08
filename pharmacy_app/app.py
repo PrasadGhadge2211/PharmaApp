@@ -296,7 +296,7 @@ def edit_general(id):
         except Exception as e:
             flash(f'Error updating: {str(e)}', 'danger')
 
-    return render_template('general/edit.html', item=item)
+    return render_template('general/edit.html', medicine=item)
 
 @app.route('/general/delete/<id>')
 def delete_general(id):
