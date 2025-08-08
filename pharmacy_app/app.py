@@ -1,18 +1,26 @@
-
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response, jsonify
 from datetime import datetime, timedelta
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from bson.objectid import ObjectId
 from bson.regex import Regex
-from weasyprint import HTML
 from io import BytesIO
 import os
 import random
 import pytz
 import certifi
+from reportlab.lib.pagesizes import A4
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.lib.units import inch
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 app = Flask(__name__, static_folder='static')
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key')
+
+FONT_PATH = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
+pdfmetrics.registerFont(TTFont('DejaVuSans', FONT_PATH))
 
 ca = certifi.where()
 client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=ca)
@@ -421,8 +429,6 @@ def new_sale():
 
 @app.route('/sales/<sale_id>')
 def view_invoice(sale_id):
-    from bson import ObjectId
-
     try:
         sale = db.sales.find_one({"_id": ObjectId(sale_id)})
     except:
@@ -456,52 +462,119 @@ def view_invoice(sale_id):
 
     return render_template('sales/invoice.html', sale=sale, items=items_with_details)
 
+
 @app.route('/sales/print/<sale_id>')
 def print_invoice(sale_id):
     sale = db.sales.find_one({"_id": ObjectId(sale_id)})
-
     if not sale:
         flash('Invoice not found', 'danger')
         return redirect(url_for('sales'))
 
-    # Fetch customer details if linked
+    # Customer info
     customer = None
     if sale.get('customer_id'):
         customer = db.customers.find_one({"_id": ObjectId(sale['customer_id'])})
 
-    # Prepare items with medicine details
-    items = []
-    for item in sale.get('items', []):
-        medicine = db.medicines.find_one({"_id": ObjectId(item['medicine_id'])})
-        items.append({
-            "medicine_name": medicine['name'] if medicine else "Unknown",
-            "batch_number": medicine.get('batch_number') if medicine else "",
-            "quantity": item.get('quantity', 0),
-            "price": item.get('price', 0)
-        })
+    # Shop details (From:)
+    shop_info = [
+        "Sanskar Medical and Gen.St",
+        "Shop No.35, Pratibha Sa",
+        "Ghadge Nagar, Nashik Road, Nashik",
+        "Phone: 94229 90414 / 80070 74991",
+        "DL.NO: 20-433500 / 21-433501",
+        "GSTIN: "
+    ]
 
-    # Prepare sale data for the template
-    sale_data = {
-        "invoice_number": sale.get('invoice_number', ''),
-        "date": sale.get('date', datetime.utcnow()),
-        "customer_name": customer['name'] if customer else "Walk-in Customer",
-        "customer_phone": customer.get('phone') if customer else None,
-        "customer_address": customer.get('address') if customer else None,
-        "total_amount": sale.get('total_amount', 0),
-        "discount": sale.get('discount', 0),
-        "payment_method": sale.get('payment_method', 'Not specified'),
-    }
+    # Customer details (To:)
+    customer_name = customer['name'] if customer else "Walk-in Customer"
+    customer_lines = [customer_name]
+    if customer and customer.get("phone"):
+        customer_lines.append(f"Phone: {customer['phone']}")
 
-    rendered = render_template(
-        'sales/print_invoice.html',
-        sale=sale_data,
-        items=items
-    )
+    # Items table
+    items_data = [["#", "Item", "Batch No.", "Qty", "Unit Price (₹)", "Total (₹)"]]
+    subtotal = 0
+    for idx, item in enumerate(sale.get("items", []), start=1):
+        med = db.medicines.find_one({"_id": ObjectId(item["medicine_id"])})
+        name = med["name"] if med else "Unknown"
+        batch = med.get("batch_number", "") if med else ""
+        qty = item.get("quantity", 0)
+        price = item.get("price", 0)
+        total = qty * price
+        subtotal += total
+        items_data.append([idx, name, batch, qty, f"₹{price:.2f}", f"₹{total:.2f}"])
 
-    # Generate PDF
-    pdf = HTML(string=rendered).write_pdf()
+    discount = sale.get("discount", 0)
+    total_amount = subtotal - discount
 
-    response = make_response(pdf)
+    # PDF buffer
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=20, bottomMargin=20)
+    styles = getSampleStyleSheet()
+    elements = []
+
+    # Title
+    title_style = ParagraphStyle('title', parent=styles['Title'], alignment=1, fontSize=16, fontName='DejaVuSans')
+    elements.append(Paragraph(f"Invoice #{sale.get('invoice_number', '')}", title_style))
+    elements.append(Spacer(1, 0.2 * inch))
+
+    # From / To
+    from_to_data = [
+        [
+            Paragraph("<b>From:</b><br/>" + "<br/>".join(shop_info), ParagraphStyle('shop', fontName='DejaVuSans', fontSize=10)),
+            Paragraph("<b>To:</b><br/>" + "<br/>".join(customer_lines), ParagraphStyle('cust', fontName='DejaVuSans', fontSize=10))
+        ]
+    ]
+    from_to_table = Table(from_to_data, colWidths=[3.5 * inch, 3.5 * inch])
+    from_to_table.setStyle(TableStyle([('VALIGN', (0, 0), (-1, -1), 'TOP')]))
+    elements.append(from_to_table)
+    elements.append(Spacer(1, 0.3 * inch))
+
+    # Invoice details
+    details_data = [
+        ["Invoice #:", sale.get('invoice_number', '')],
+        ["Date:", sale.get('date', datetime.utcnow()).strftime('%Y-%m-%d %H:%M:%S')],
+        ["Payment Method:", sale.get('payment_method', 'Cash')]
+    ]
+    details_table = Table(details_data, colWidths=[1.5 * inch, 5.5 * inch])
+    details_table.setStyle(TableStyle([
+        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
+        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans')
+    ]))
+    elements.append(details_table)
+    elements.append(Spacer(1, 0.3 * inch))
+
+    # Items table
+    table = Table(items_data, colWidths=[0.5*inch, 2.3*inch, 1.3*inch, 0.6*inch, 1.1*inch, 1.1*inch])
+    table.setStyle(TableStyle([
+        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans'),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
+        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
+        ('ALIGN', (3, 1), (-1, -1), 'CENTER'),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')
+    ]))
+    elements.append(table)
+    elements.append(Spacer(1, 0.3 * inch))
+
+    # Totals
+    totals_data = [
+        ["Subtotal:", f"₹{subtotal:.2f}"],
+        ["Discount:", f"₹{discount:.2f}"],
+        ["Total Amount:", f"₹{total_amount:.2f}"]
+    ]
+    totals_table = Table(totals_data, colWidths=[5.9*inch, 1.1*inch])
+    totals_table.setStyle(TableStyle([
+        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
+        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10)
+    ]))
+    elements.append(totals_table)
+
+    # Build PDF
+    doc.build(elements)
+    buffer.seek(0)
+
+    response = make_response(buffer.read())
     response.headers['Content-Type'] = 'application/pdf'
     response.headers['Content-Disposition'] = f'inline; filename=invoice_{sale_id}.pdf'
     return response
