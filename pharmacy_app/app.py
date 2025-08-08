@@ -84,33 +84,103 @@ def inventory():
             med['mfg_date'] = med['mfg_date'].strftime('%Y-%m-%d')
         if isinstance(med.get('expiry_date'), datetime):
             med['expiry_date'] = med['expiry_date'].strftime('%Y-%m-%d')
+    for med in medicines:
+        units_per_strip = med.get('units_per_strip', 1) or 1
+        total_units = med.get('quantity', 0) or 0
+
+        strips = total_units // units_per_strip
+        loose_units = total_units % units_per_strip
+
+        med['stock_display'] = f"{strips} strips & {loose_units} units"
     return render_template('inventory/list.html', medicines=medicines)
 
 @app.route('/inventory/add', methods=['GET', 'POST'])
 def add_medicine():
     if request.method == 'POST':
         try:
-            med = {
-                "name": request.form['name'],
-                "batch_number": request.form['batch_number'],
-                "quantity": int(request.form['quantity']),
-                "price": float(request.form['price']),
-                "cost_price": float(request.form['cost_price']),
-                "supplier": request.form['supplier'],
-                "company": request.form['company'],
-                "mfg_date": datetime.strptime(request.form['mfg_date'], '%Y-%m-%d'),
-                "expiry_date": datetime.strptime(request.form['expiry_date'], '%Y-%m-%d'),
-                "general": False
-            }
-            if db.medicines.find_one({"batch_number": med["batch_number"]}):
+            add_by = request.form.get('add_by')  # "strip" or "unit"
+            name = request.form['name'].strip()
+            batch_number = request.form['batch_number'].strip()
+            supplier = request.form.get('supplier', '').strip()
+            company = request.form.get('company', '').strip()
+            mfg_date = datetime.strptime(request.form['mfg_date'], '%Y-%m-%d')
+            expiry_date = datetime.strptime(request.form['expiry_date'], '%Y-%m-%d')
+            general = False
+
+            # Fields that will always exist in DB
+            units_per_strip = None
+            price_per_strip = None
+            price_per_unit = None
+            total_units = 0
+
+            if add_by == 'strip':
+                # Expect strips_count, units_per_strip and price_per_strip
+                strips_count = float(request.form.get('strips_count', '0') or 0)   # allow decimals like 1.5 if user enters mistakenly - but we'll convert only for storage as integer units
+                units_per_strip = int(request.form.get('units_per_strip', '0') or 0)
+                price_per_strip = float(request.form.get('price_per_strip', '0') or 0)
+
+                if units_per_strip <= 0:
+                    flash('Units per strip must be a positive integer.', 'danger')
+                    return render_template('inventory/add.html')
+
+                if strips_count < 0:
+                    flash('Number of strips cannot be negative.', 'danger')
+                    return render_template('inventory/add.html')
+
+                # Calculate total units (allow non-integer strips like 1.5 -> multiply and round to nearest unit)
+                total_units = int(round(strips_count * units_per_strip))
+
+                # price_per_unit computed but user can override in form; prefer explicit per-unit if provided
+                price_per_unit_input = request.form.get('price_per_unit', '').strip()
+                if price_per_unit_input != '':
+                    price_per_unit = float(price_per_unit_input)
+                else:
+                    # avoid division by zero (units_per_strip > 0 ensured above)
+                    price_per_unit = price_per_strip / units_per_strip if price_per_strip is not None else 0.0
+
+            else:  # add_by == 'unit' or default
+                price_per_unit = float(request.form.get('price_per_unit', '0') or 0)
+                units_count = int(request.form.get('quantity', '0') or 0)
+                if units_count < 0:
+                    flash('Quantity cannot be negative.', 'danger')
+                    return render_template('inventory/add.html')
+                total_units = units_count
+                # price_per_strip remains None (unless user later sets it)
+
+            # Common numeric fields: cost_price (rate) stored per unit (user provides)
+            cost_price = float(request.form.get('cost_price', '0') or 0)
+
+            # Check duplicate batch
+            if db.medicines.find_one({"batch_number": batch_number}):
                 flash('Batch number already exists!', 'danger')
-            else:
-                db.medicines.insert_one(med)
-                flash('Medicine added successfully!', 'success')
-                return redirect(url_for('inventory'))
+                return render_template('inventory/add.html')
+
+            med = {
+                "name": name,
+                "batch_number": batch_number,
+                "quantity": total_units,
+                "price_per_unit": round(float(price_per_unit or 0), 2),
+                "price_per_strip": round(float(price_per_strip) if price_per_strip is not None else None, 2) if price_per_strip is not None else None,
+                "units_per_strip": int(units_per_strip) if units_per_strip is not None else None,
+                "cost_price_per_unit": round(float(cost_price or 0), 2),
+                "supplier": supplier,
+                "company": company,
+                "mfg_date": mfg_date,
+                "expiry_date": expiry_date,
+                "general": general
+            }
+
+            db.medicines.insert_one(med)
+            flash('Medicine added successfully!', 'success')
+            return redirect(url_for('inventory'))
+
         except Exception as e:
+            app.logger.exception("Error adding medicine")
             flash(f'Error: {str(e)}', 'danger')
+
+    # GET request
     return render_template('inventory/add.html')
+
 
 @app.route('/inventory/edit/<id>', methods=['GET', 'POST'])
 def edit_medicine(id):
@@ -337,6 +407,7 @@ def search_customers():
         return jsonify({"error": "Failed to search customers"}), 500
     
 
+
 @app.route('/sales')
 def sales():
     sales_list = []
@@ -369,31 +440,45 @@ def new_sale():
             discount = float(request.form.get('discount', 0) or 0)
 
             medicine_ids = request.form.getlist('medicine_ids[]')
-            quantities = request.form.getlist('quantities[]')
+            strips_list = request.form.getlist('strips[]')
+            units_list = request.form.getlist('units[]')
             prices = request.form.getlist('prices[]')
 
-            if not medicine_ids or not quantities or not prices:
+            if not medicine_ids or not prices:
                 return jsonify({"error": "No medicines selected"}), 400
 
-            # Convert values to correct types
-            quantities = [int(q) for q in quantities]
+            strips_list = [int(s or 0) for s in strips_list]
+            units_list = [int(u or 0) for u in units_list]
             prices = [float(p) for p in prices]
 
-            # Build sale items list
             items = []
             total_amount = 0
-            for med_id, qty, price in zip(medicine_ids, quantities, prices):
-                total_amount += qty * price
+
+            for med_id, strips, units, price in zip(medicine_ids, strips_list, units_list, prices):
+                med = db.medicines.find_one({"_id": ObjectId(med_id)})
+                if not med:
+                    continue
+                print("data:", med_id, strips, units, price)
+
+                units_per_strip = med.get("units_per_strip", 1)
+                total_units = strips * units_per_strip + units
+
+                # Calculate total price based on units
+                total_amount += strips * med.get("price_per_strip", 0) + units * med.get("price_per_unit", 0)
+
+                # Store in items
                 items.append({
                     "medicine_id": ObjectId(med_id),
-                    "quantity": qty,
+                    "strips": strips,
+                    "units": units,
+                    "total_units": total_units,
                     "price": price
                 })
 
-                # Update medicine stock
+                # Deduct stock in units
                 db.medicines.update_one(
                     {"_id": ObjectId(med_id)},
-                    {"$inc": {"quantity": -qty}}
+                    {"$inc": {"quantity": -total_units}}
                 )
 
             # Apply discount
@@ -404,7 +489,7 @@ def new_sale():
             if last_sale and "invoice_number" in last_sale:
                 invoice_number = last_sale["invoice_number"] + 1
             else:
-                invoice_number = 1001  # starting point
+                invoice_number = 1001
 
             # Insert sale record
             sale_doc = {
@@ -422,9 +507,11 @@ def new_sale():
             return redirect(url_for('sales'))
 
         except Exception as e:
-            return jsonify({"error": f"Failed to process sale: {e}"}), 500
+            app.logger.error(f"Error processing sale: {e}")
+            return jsonify({"error": "Failed to process sale"}), 500
 
     return render_template('sales/new.html', customers=customers, medicines=medicines)
+
 
 @app.route('/sales/<sale_id>')
 def view_invoice(sale_id):
@@ -443,140 +530,85 @@ def view_invoice(sale_id):
         customer = db.customers.find_one({"_id": ObjectId(sale["customer_id"])})
         sale["customer_name"] = customer["name"] if customer else "Walk-in Customer"
         sale["customer_phone"] = customer.get("phone", "") if customer else ""
+        sale["customer_address"] = customer.get("address", "") if customer else ""
     else:
         sale["customer_name"] = "Walk-in Customer"
         sale["customer_phone"] = ""
+        sale["customer_address"] = ""
 
-    # Get medicine details
+    # Get medicine details with strips & units
     items_with_details = []
     for item in sale.get("items", []):
         med = db.medicines.find_one({"_id": ObjectId(item["medicine_id"])})
         if med:
+            # units_per_strip = med.get("units_per_strip", 1) or 1  # avoid division by zero
+            strips = item['strips']
+            units = item['units']
+
             items_with_details.append({
                 "medicine_name": med["name"],
                 "batch_number": med.get("batch_number", ""),
-                "quantity": item["quantity"],
-                "price": item["price"]
+                "quantity": f"{strips} strips & {units} units",
+                "ps": med.get('price_per_strip', 0),
+                "pu": med.get('price_per_unit', 0),
+                "total": strips * med.get("price_per_strip", 0) + units * med.get("price_per_unit", 0),
             })
 
-    return render_template('sales/invoice.html', sale=sale, items=items_with_details)
+    return render_template(
+        'sales/invoice.html',
+        sale=sale,
+        items=items_with_details,
+        current_time=datetime.now()
+    )
 
 
 @app.route('/sales/print/<sale_id>')
-def print_invoice(sale_id):
-    sale = db.sales.find_one({"_id": ObjectId(sale_id)})
-    if not sale:
-        flash('Invoice not found', 'danger')
+def print_invoice_html(sale_id):
+    try:
+        sale = db.sales.find_one({"_id": ObjectId(sale_id)})
+    except:
+        flash("Invalid sale ID.", "danger")
         return redirect(url_for('sales'))
 
-    # Customer info
-    customer = None
-    if sale.get('customer_id'):
-        customer = db.customers.find_one({"_id": ObjectId(sale['customer_id'])})
+    if not sale:
+        flash('Invoice not found.', 'danger')
+        return redirect(url_for('sales'))
 
-    # Shop details (From:)
-    shop_info = [
-        "Sanskar Medical and Gen.St",
-        "Shop No.35, Pratibha Sa",
-        "Ghadge Nagar, Nashik Road, Nashik",
-        "Phone: 94229 90414 / 80070 74991",
-        "DL.NO: 20-433500 / 21-433501",
-        "GSTIN: "
-    ]
+    # Attach customer info
+    if sale.get("customer_id"):
+        customer = db.customers.find_one({"_id": ObjectId(sale["customer_id"])})
+        sale["customer_name"] = customer["name"] if customer else "Walk-in Customer"
+        sale["customer_phone"] = customer.get("phone", "") if customer else ""
+        sale["customer_address"] = customer.get("address", "") if customer else ""
+    else:
+        sale["customer_name"] = "Walk-in Customer"
+        sale["customer_phone"] = ""
+        sale["customer_address"] = ""
 
-    # Customer details (To:)
-    customer_name = customer['name'] if customer else "Walk-in Customer"
-    customer_lines = [customer_name]
-    if customer and customer.get("phone"):
-        customer_lines.append(f"Phone: {customer['phone']}")
-
-    # Items table
-    items_data = [["#", "Item", "Batch No.", "Qty", "Unit Price (₹)", "Total (₹)"]]
-    subtotal = 0
-    for idx, item in enumerate(sale.get("items", []), start=1):
+    # Get medicine details with strips & units
+    items_with_details = []
+    for item in sale.get("items", []):
         med = db.medicines.find_one({"_id": ObjectId(item["medicine_id"])})
-        name = med["name"] if med else "Unknown"
-        batch = med.get("batch_number", "") if med else ""
-        qty = item.get("quantity", 0)
-        price = item.get("price", 0)
-        total = qty * price
-        subtotal += total
-        items_data.append([idx, name, batch, qty, f"₹{price:.2f}", f"₹{total:.2f}"])
+        if med:
+            # units_per_strip = med.get("units_per_strip", 1) or 1  # avoid division by zero
+            strips = item['strips']
+            units = item['units']
 
-    discount = sale.get("discount", 0)
-    total_amount = subtotal - discount
+            items_with_details.append({
+                "medicine_name": med["name"],
+                "batch_number": med.get("batch_number", ""),
+                "quantity": f"{strips} strips & {units} units",
+                "ps": med.get('price_per_strip', 0),
+                "pu": med.get('price_per_unit', 0),
+                "total": strips * med.get("price_per_strip", 0) + units * med.get("price_per_unit", 0),
+            })
 
-    # PDF buffer
-    buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=30, leftMargin=30, topMargin=20, bottomMargin=20)
-    styles = getSampleStyleSheet()
-    elements = []
-
-    # Title
-    title_style = ParagraphStyle('title', parent=styles['Title'], alignment=1, fontSize=16, fontName='DejaVuSans')
-    elements.append(Paragraph(f"Invoice #{sale.get('invoice_number', '')}", title_style))
-    elements.append(Spacer(1, 0.2 * inch))
-
-    # From / To
-    from_to_data = [
-        [
-            Paragraph("<b>From:</b><br/>" + "<br/>".join(shop_info), ParagraphStyle('shop', fontName='DejaVuSans', fontSize=10)),
-            Paragraph("<b>To:</b><br/>" + "<br/>".join(customer_lines), ParagraphStyle('cust', fontName='DejaVuSans', fontSize=10))
-        ]
-    ]
-    from_to_table = Table(from_to_data, colWidths=[3.5 * inch, 3.5 * inch])
-    from_to_table.setStyle(TableStyle([('VALIGN', (0, 0), (-1, -1), 'TOP')]))
-    elements.append(from_to_table)
-    elements.append(Spacer(1, 0.3 * inch))
-
-    # Invoice details
-    details_data = [
-        ["Invoice #:", sale.get('invoice_number', '')],
-        ["Date:", sale.get('date', datetime.utcnow()).strftime('%Y-%m-%d %H:%M:%S')],
-        ["Payment Method:", sale.get('payment_method', 'Cash')]
-    ]
-    details_table = Table(details_data, colWidths=[1.5 * inch, 5.5 * inch])
-    details_table.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
-        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans')
-    ]))
-    elements.append(details_table)
-    elements.append(Spacer(1, 0.3 * inch))
-
-    # Items table
-    table = Table(items_data, colWidths=[0.5*inch, 2.3*inch, 1.3*inch, 0.6*inch, 1.1*inch, 1.1*inch])
-    table.setStyle(TableStyle([
-        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans'),
-        ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-        ('GRID', (0, 0), (-1, -1), 0.5, colors.grey),
-        ('ALIGN', (3, 1), (-1, -1), 'CENTER'),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE')
-    ]))
-    elements.append(table)
-    elements.append(Spacer(1, 0.3 * inch))
-
-    # Totals
-    totals_data = [
-        ["Subtotal:", f"₹{subtotal:.2f}"],
-        ["Discount:", f"₹{discount:.2f}"],
-        ["Total Amount:", f"₹{total_amount:.2f}"]
-    ]
-    totals_table = Table(totals_data, colWidths=[5.9*inch, 1.1*inch])
-    totals_table.setStyle(TableStyle([
-        ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
-        ('FONTNAME', (0, 0), (-1, -1), 'DejaVuSans'),
-        ('FONTSIZE', (0, 0), (-1, -1), 10)
-    ]))
-    elements.append(totals_table)
-
-    # Build PDF
-    doc.build(elements)
-    buffer.seek(0)
-
-    response = make_response(buffer.read())
-    response.headers['Content-Type'] = 'application/pdf'
-    response.headers['Content-Disposition'] = f'inline; filename=invoice_{sale_id}.pdf'
-    return response
+    return render_template(
+        'sales/invoice_print.html',
+        sale=sale,
+        items=items_with_details,
+        current_time=datetime.now()
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
