@@ -38,7 +38,7 @@
         </div>
         <div class="col-sm-6 text-sm-end">
             <h5 class="mb-3 text-primary">Invoice Details:</h5>
-            <strong>Invoice ID:</strong> {{ sale._id }}<br>
+            <strong>Invoice ID:</strong> {{ sale.invoice_number }}<br>
             <p><strong>Date:</strong>
                 {% if sale.date %}
                     {{ sale.date.strftime("%Y-%m-%d") }}
