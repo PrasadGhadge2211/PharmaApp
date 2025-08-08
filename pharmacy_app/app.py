@@ -217,6 +217,7 @@ def delete_medicine(id):
         flash(f'Failed to delete: {str(e)}', 'danger')
     return redirect(url_for('inventory'))
 
+
 # General Inventory
 @app.route('/general')
 def general_inventory():
@@ -319,7 +320,7 @@ def add_customer():
             customer = {
                 "name": request.form['name'],
                 "phone": request.form['phone'],
-                "email": request.form['email']
+                "address": request.form.get('address'),
             }
             db.customers.insert_one(customer)
             flash('Customer added successfully!', 'success')
@@ -327,6 +328,46 @@ def add_customer():
         except Exception as e:
             flash(f'Error: {str(e)}', 'danger')
     return render_template('customers/add.html')
+
+@app.route('/customers/edit/<id>', methods=['GET', 'POST'])
+def edit_customer(id):
+    customer = db.customers.find_one({"_id": ObjectId(id)})
+    if not customer:
+        flash('Customer not found!', 'danger')
+        return redirect(url_for('customers'))
+
+    if request.method == 'POST':
+        try:
+            update = {
+                "name": request.form['name'],
+                "phone": request.form['phone'],
+                "address": request.form.get('address')
+            }
+            db.customers.update_one({"_id": ObjectId(id)}, {"$set": update})
+            flash('Customer updated successfully!', 'success')
+            return redirect(url_for('customers'))
+        except Exception as e:
+            flash(f'Error updating: {str(e)}', 'danger')
+
+    return render_template('customers/edit.html', customer=customer)
+
+@app.route('/customers/view/<id>')
+def view_customer(id):
+    customer = db.customers.find_one({"_id": ObjectId(id)})
+    if not customer:
+        flash('Customer not found!', 'danger')
+        return redirect(url_for('customers'))
+
+    # Fetch sales related to this customer
+    sales = list(db.sales.find({"customer_id": ObjectId(id)}).sort("date", DESCENDING))
+
+    # Convert ObjectId to string for template usage
+    for sale in sales:
+        sale["_id"] = str(sale["_id"])
+        sale["date"] = sale["date"].strftime('%Y-%m-%d %H:%M:%S') if isinstance(sale["date"], datetime) else sale["date"]
+
+    return render_template('customers/view.html', customer=customer, sales=sales)
+
 
 @app.route('/customers/delete/<id>')
 def delete_customer(id):
@@ -359,6 +400,9 @@ def search_medicines():
                 "name": 1,
                 "batch_number": 1,
                 "price": 1,
+                "price_per_unit": 1,
+                "price_per_strip": 1,
+                "units_per_strip": 1,
                 "quantity": 1
             }
         ).sort([("name", 1), ("batch_number", 1)]).limit(10)
@@ -406,7 +450,6 @@ def search_customers():
         app.logger.error(f"Error searching customers: {e}")
         return jsonify({"error": "Failed to search customers"}), 500
     
-
 
 @app.route('/sales')
 def sales():
@@ -560,8 +603,6 @@ def view_invoice(sale_id):
         items=items_with_details,
         current_time=datetime.now()
     )
-
-
 @app.route('/sales/print/<sale_id>')
 def print_invoice_html(sale_id):
     try:
